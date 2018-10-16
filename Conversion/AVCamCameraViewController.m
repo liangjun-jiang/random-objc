@@ -1,5 +1,5 @@
 /*
-See LICENSE.txt for this sample’s licensing information.
+L. Jiang
 
 Abstract:
 View controller for camera interface.
@@ -110,13 +110,15 @@ typedef NS_ENUM( NSInteger, AVCamDepthDataDeliveryMode ) {
 	self.livePhotoModeButton.enabled = NO;
 	self.captureModeControl.enabled = NO;
     self.depthDataDeliveryButton.enabled = NO;
+    
+    self.captureModeControl.selectedSegmentIndex = AVCamCaptureModeMovie;
 	
 	// Create the AVCaptureSession.
 	self.session = [[AVCaptureSession alloc] init];
 	
 	// Create a device discovery session.
 	NSArray<AVCaptureDeviceType> *deviceTypes = @[AVCaptureDeviceTypeBuiltInWideAngleCamera, AVCaptureDeviceTypeBuiltInDualCamera];
-	self.videoDeviceDiscoverySession = [AVCaptureDeviceDiscoverySession discoverySessionWithDeviceTypes:deviceTypes mediaType:AVMediaTypeVideo position:AVCaptureDevicePositionUnspecified];
+	self.videoDeviceDiscoverySession = [AVCaptureDeviceDiscoverySession discoverySessionWithDeviceTypes:deviceTypes mediaType:AVMediaTypeVideo position:AVCaptureDevicePositionFront];
 	
 	// Set up the preview view.
 	self.previewView.session = self.session;
@@ -282,14 +284,14 @@ typedef NS_ENUM( NSInteger, AVCamDepthDataDeliveryMode ) {
 	// Add video input.
 	
 	// Choose the back dual camera if available, otherwise default to a wide angle camera.
-	AVCaptureDevice *videoDevice = [AVCaptureDevice defaultDeviceWithDeviceType:AVCaptureDeviceTypeBuiltInDualCamera mediaType:AVMediaTypeVideo position:AVCaptureDevicePositionBack];
+	AVCaptureDevice *videoDevice = [AVCaptureDevice defaultDeviceWithDeviceType:AVCaptureDeviceTypeBuiltInDualCamera mediaType:AVMediaTypeVideo position:AVCaptureDevicePositionFront];
 	if ( ! videoDevice ) {
 		// If the back dual camera is not available, default to the back wide angle camera.
-		videoDevice = [AVCaptureDevice defaultDeviceWithDeviceType:AVCaptureDeviceTypeBuiltInWideAngleCamera mediaType:AVMediaTypeVideo position:AVCaptureDevicePositionBack];
+		videoDevice = [AVCaptureDevice defaultDeviceWithDeviceType:AVCaptureDeviceTypeBuiltInWideAngleCamera mediaType:AVMediaTypeVideo position:AVCaptureDevicePositionFront];
 		
 		// In some cases where users break their phones, the back wide angle camera is not available. In this case, we should default to the front wide angle camera.
 		if ( ! videoDevice ) {
-			videoDevice = [AVCaptureDevice defaultDeviceWithDeviceType:AVCaptureDeviceTypeBuiltInWideAngleCamera mediaType:AVMediaTypeVideo position:AVCaptureDevicePositionFront];
+			videoDevice = [AVCaptureDevice defaultDeviceWithDeviceType:AVCaptureDeviceTypeBuiltInWideAngleCamera mediaType:AVMediaTypeVideo position:AVCaptureDevicePositionBack];
 		}
 	}
 	AVCaptureDeviceInput *videoDeviceInput = [AVCaptureDeviceInput deviceInputWithDevice:videoDevice error:&error];

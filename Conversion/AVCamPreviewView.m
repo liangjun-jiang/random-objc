@@ -1,5 +1,5 @@
 /*
-See LICENSE.txt for this sample’s licensing information.
+L. Jiang
 
 Abstract:
 Application preview view.
