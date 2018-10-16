@@ -35,10 +35,8 @@
 
 -(IBAction)onAgree:(id)sender {
     [self saveUserChoice:YES];
-    
-    UIStoryboard *mainStoryborad = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     UIWindow *window = [[UIApplication sharedApplication] keyWindow];
-    window.rootViewController = [mainStoryborad instantiateViewControllerWithIdentifier:@"RootViewController"];
+    window.rootViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"RootViewController"];
 }
 
 -(IBAction)onNotAgree:(id)sender {
