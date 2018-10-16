@@ -15,6 +15,8 @@
 		53BA80BA21756BEC0078DC5E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 53BA80B921756BEC0078DC5E /* Assets.xcassets */; };
 		53BA80BD21756BEC0078DC5E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53BA80BB21756BEC0078DC5E /* LaunchScreen.storyboard */; };
 		53BA80C021756BEC0078DC5E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 53BA80BF21756BEC0078DC5E /* main.m */; };
+		53BA80C821756F660078DC5E /* SignUpLogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 53BA80C721756F660078DC5E /* SignUpLogInViewController.m */; };
+		53BA80CB21756F7B0078DC5E /* TermsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 53BA80CA21756F7B0078DC5E /* TermsViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +34,10 @@
 		53BA80BC21756BEC0078DC5E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		53BA80BE21756BEC0078DC5E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		53BA80BF21756BEC0078DC5E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		53BA80C621756F660078DC5E /* SignUpLogInViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SignUpLogInViewController.h; sourceTree = "<group>"; };
+		53BA80C721756F660078DC5E /* SignUpLogInViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SignUpLogInViewController.m; sourceTree = "<group>"; };
+		53BA80C921756F7B0078DC5E /* TermsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TermsViewController.h; sourceTree = "<group>"; };
+		53BA80CA21756F7B0078DC5E /* TermsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TermsViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +83,10 @@
 				53BA80BB21756BEC0078DC5E /* LaunchScreen.storyboard */,
 				53BA80BE21756BEC0078DC5E /* Info.plist */,
 				53BA80BF21756BEC0078DC5E /* main.m */,
+				53BA80C621756F660078DC5E /* SignUpLogInViewController.h */,
+				53BA80C721756F660078DC5E /* SignUpLogInViewController.m */,
+				53BA80C921756F7B0078DC5E /* TermsViewController.h */,
+				53BA80CA21756F7B0078DC5E /* TermsViewController.m */,
 			);
 			path = Conversion;
 			sourceTree = "<group>";
@@ -151,6 +161,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				53BA80CB21756F7B0078DC5E /* TermsViewController.m in Sources */,
+				53BA80C821756F660078DC5E /* SignUpLogInViewController.m in Sources */,
 				53BA80C021756BEC0078DC5E /* main.m in Sources */,
 				53BA80AF21756BEA0078DC5E /* RootViewController.m in Sources */,
 				53BA80B521756BEA0078DC5E /* ModelController.m in Sources */,
@@ -297,8 +309,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 8ZMZWMEMPT;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Conversion/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -306,6 +318,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = edu.ua.drwu.Conversion;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -314,8 +327,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 8ZMZWMEMPT;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Conversion/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -323,6 +336,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = edu.ua.drwu.Conversion;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

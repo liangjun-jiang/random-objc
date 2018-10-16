@@ -22,7 +22,10 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.dataLabel.text = [self.dataObject description];
+//    NSLog(@"data object: %@", self.dataObject);
+    self.dataLabel.text = [NSString stringWithFormat:@"%@", self.dataObject[@"index"]];
+    self.instructionLabel.text =  self.dataObject[@"instruction"];
+    
 }
 
 

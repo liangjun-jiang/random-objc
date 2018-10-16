@@ -21,6 +21,7 @@
 
 @interface ModelController ()
 
+@property (readonly, strong, nonatomic) NSArray *samplePageData;
 @property (readonly, strong, nonatomic) NSArray *pageData;
 @end
 
@@ -30,8 +31,24 @@
     self = [super init];
     if (self) {
         // Create the data model.
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        _pageData = [[dateFormatter monthSymbols] copy];
+        
+        _samplePageData = @[@{@"index":@0, @"title":@"Stage 1: Video Collection", @"instruction":@"Step 1: Please put your face in the circle"},
+                            @{@"index":@1, @"title":@"Stage 2: ", @"instruction":@"Step 2: Play your video"}];
+  
+        _pageData = @[
+                     @{@"index":@0, @"instruction":@"Please keep calm on your face and press the record button and hold for 10 sec (do not talk)"},
+                     @{@"index":@1, @"instruction":@"Please keep smile on your face and press the record button and hold for 10 sec (do not talk)"},
+                     @{@"index":@2, @"instruction":@"Please keep unhappy on your face and press the record button and hold for 10 sec (do not talk)"},
+                     @{@"index":@3, @"instruction":@"Please keep angry on your face and press the record button and hold for 10 sec (do not talk)"},
+                     @{@"index":@4, @"instruction":@"Please keep surprise on your face and press the record button and hold for 10 sec (do not talk)"},
+                     @{@"index":@5, @"instruction":@"Please keep sad on your face and press the record button and hold for 10 sec (do not talk)"},
+                     @{@"index":@6, @"instruction":@"Please keep calm on your face and keep talking with your mouth moving but don't make any sound and press the record button and hold for 10 sec "},
+                     @{@"index":@7, @"instruction":@"Please keep smile on your face and keep talking with your mouth moving but don't make any sound and press the record button and hold for 10 sec"},
+                     @{@"index":@8, @"instruction":@"Please keep unhappy on your face and keep talking with your mouth moving but don't make any sound and press the record button and hold for 10 sec"},
+                     @{@"index":@9, @"instruction":@"Please keep angry emotion on your face and keep talking with your mouth moving but don't make any sound and press the record button and hold for 10 sec"},
+                     @{@"index":@10, @"instruction":@"Please keep surprise emotion on your face and keep talking with your mouth moving but don't make any sound and press the record button and hold for 10 sec"},
+                     @{@"index":@11, @"instruction":@"Please keep sad emotion on your face and keep talking with your mouth moving but don't make any sound and press the record button and hold for 10 sec"}
+                     ];
     }
     return self;
 }
