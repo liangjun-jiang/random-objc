@@ -22,11 +22,16 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-//    NSLog(@"data object: %@", self.dataObject);
     self.dataLabel.text = [NSString stringWithFormat:@"%@", self.dataObject[@"index"]];
     self.instructionLabel.text =  self.dataObject[@"instruction"];
+}
+
+- (IBAction)onCancel:(id)sender {
     
 }
 
+- (IBAction)onRecord:(id)sender {
+    
+}
 
 @end
