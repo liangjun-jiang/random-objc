@@ -17,6 +17,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    NSString *disclaimer = @"Disclaimer: This app will collect the user's personal video and voice. I (the user) agree that the develper and the company will process and save the video and voice and personal information. The developer and the company promise not to personalize the video and voice of the user's personal information";
+    
+    self.termsTextView.text = disclaimer;
 }
 
 /*
@@ -30,12 +34,20 @@
 */
 
 -(IBAction)onAgree:(id)sender {
+    [self saveUserChoice:YES];
+    
     UIStoryboard *mainStoryborad = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     UIWindow *window = [[UIApplication sharedApplication] keyWindow];
     window.rootViewController = [mainStoryborad instantiateViewControllerWithIdentifier:@"RootViewController"];
 }
 
 -(IBAction)onNotAgree:(id)sender {
-    
+    [self saveUserChoice:NO];
 }
+
+- (void)saveUserChoice:(BOOL)choice {
+    [[NSUserDefaults standardUserDefaults] setBool:choice forKey:@"isAcceptedTerm"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
 @end

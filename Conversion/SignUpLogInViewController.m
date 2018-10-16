@@ -32,12 +32,24 @@
 
 
 -(IBAction)onSignUp:(id)sender {
-    TermsViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"TermsViewController"];
-    [self.navigationController pushViewController:vc animated:YES];
+    [self saveLoggedInOrSignedUp];
+    [self presentTermsViewController];
 }
 
 -(IBAction)onLogin:(id)sender {
-    TermsViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"TermsViewController"];
-    [self.navigationController pushViewController:vc animated:YES];
+    [self saveLoggedInOrSignedUp];
+    [self presentTermsViewController];
+}
+
+- (void)saveLoggedInOrSignedUp {
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isLoggedIn"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (void)presentTermsViewController {
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"isAcceptedTerm"]) {
+        TermsViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"TermsViewController"];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 @end

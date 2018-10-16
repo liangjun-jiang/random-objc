@@ -12,6 +12,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface TermsViewController : UIViewController
 
+@property (strong, nonatomic) IBOutlet UITextView *termsTextView;
+
+
 @end
 
 NS_ASSUME_NONNULL_END
