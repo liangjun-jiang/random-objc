@@ -38,6 +38,7 @@
 }
 
 - (void)countdown:(id)data {
+    NSLog(@"should be counting");
     self.dataLabel.text = [NSString stringWithFormat:@"%d sec",self.initSecs--];
     if (self.initSecs <= 0) {
         //todo: move to the next one

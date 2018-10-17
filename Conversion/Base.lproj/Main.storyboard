@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="c9U-8e-hMa">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="eJB-wg-vF4">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -312,7 +312,7 @@
                                     <action selector="toggleMovieRecording:" destination="c9U-8e-hMa" eventType="touchUpInside" id="25L-VT-dYa"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5nw-iv-gpT" userLabel="Photo">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5nw-iv-gpT" userLabel="Photo">
                                 <rect key="frame" x="147.5" y="617" width="80" height="30"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -333,7 +333,7 @@
                                     <action selector="capturePhoto:" destination="c9U-8e-hMa" eventType="touchUpInside" id="2Xo-Fv-RVo"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CNW-Ij-4YC" userLabel="Camera">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CNW-Ij-4YC" userLabel="Camera">
                                 <rect key="frame" x="247.5" y="617" width="80" height="30"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
@@ -350,7 +350,7 @@
                                     <action selector="changeCamera:" destination="c9U-8e-hMa" eventType="touchUpInside" id="mf6-rR-Itx"/>
                                 </connections>
                             </button>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="cuI-q2-LFJ" userLabel="Capture Mode">
+                            <segmentedControl hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="cuI-q2-LFJ" userLabel="Capture Mode">
                                 <rect key="frame" x="136" y="100" width="103" height="29"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <segments>
@@ -362,7 +362,7 @@
                                     <action selector="toggleCaptureMode:" destination="c9U-8e-hMa" eventType="valueChanged" id="r8G-eZ-S2L"/>
                                 </connections>
                             </segmentedControl>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JUX-DO-gg4" userLabel="Depth Data Delivery">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JUX-DO-gg4" userLabel="Depth Data Delivery">
                                 <rect key="frame" x="82.5" y="28" width="210" height="25"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.29999999999999999" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -381,7 +381,7 @@
                                     <action selector="toggleDepthDataDeliveryMode:" destination="c9U-8e-hMa" eventType="touchUpInside" id="wA0-BZ-VK8"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dE6-qP-gmf" userLabel="Live Photo Mode">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dE6-qP-gmf" userLabel="Live Photo Mode">
                                 <rect key="frame" x="96.5" y="61" width="182" height="25"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -412,11 +412,32 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2xW-E5-2CL">
+                                <rect key="frame" x="34" y="28" width="307" height="75"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="75" id="2eZ-8k-QSd"/>
+                                    <constraint firstAttribute="width" constant="307" id="rHl-rW-cjL"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PBm-2R-CV6">
+                                <rect key="frame" x="87.5" y="28" width="200" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="53h-ID-Aon"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="z0X-aj-ffk"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="tdJ-HM-dd0" firstAttribute="top" secondItem="dE6-qP-gmf" secondAttribute="bottom" constant="8" id="1hH-Nc-UsM"/>
+                            <constraint firstItem="PBm-2R-CV6" firstAttribute="top" secondItem="qKN-94-FS5" secondAttribute="top" constant="8" id="5HY-c8-qpP"/>
                             <constraint firstItem="zWE-L5-bfe" firstAttribute="centerX" secondItem="qKN-94-FS5" secondAttribute="centerX" id="9Tw-xs-0CZ"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="CNW-Ij-4YC" secondAttribute="trailing" constant="20" symbolic="YES" id="9w3-xY-kzh"/>
                             <constraint firstItem="5nw-iv-gpT" firstAttribute="leading" secondItem="WdG-Oh-cjI" secondAttribute="trailing" constant="20" id="Ae7-hX-GF9"/>
@@ -432,9 +453,11 @@
                             <constraint firstItem="5nw-iv-gpT" firstAttribute="top" secondItem="WdG-Oh-cjI" secondAttribute="top" id="Xts-ia-aOI"/>
                             <constraint firstItem="zVr-Is-vQi" firstAttribute="centerX" secondItem="qKN-94-FS5" secondAttribute="centerX" id="bxm-S1-arA"/>
                             <constraint firstItem="qKN-94-FS5" firstAttribute="centerX" secondItem="5nw-iv-gpT" secondAttribute="centerX" id="cpj-T7-icc"/>
+                            <constraint firstItem="PBm-2R-CV6" firstAttribute="centerX" secondItem="qKN-94-FS5" secondAttribute="centerX" id="czs-mx-YN0"/>
                             <constraint firstItem="cuI-q2-LFJ" firstAttribute="centerX" secondItem="qKN-94-FS5" secondAttribute="centerX" id="dIc-aW-LBx"/>
                             <constraint firstItem="5nw-iv-gpT" firstAttribute="width" secondItem="WdG-Oh-cjI" secondAttribute="width" id="fYB-Nu-4xk"/>
                             <constraint firstItem="5nw-iv-gpT" firstAttribute="height" secondItem="WdG-Oh-cjI" secondAttribute="height" id="fkf-cg-X5v"/>
+                            <constraint firstItem="2xW-E5-2CL" firstAttribute="centerX" secondItem="qKN-94-FS5" secondAttribute="centerX" id="guz-Yh-eLl"/>
                             <constraint firstItem="knR-ZV-awL" firstAttribute="centerX" secondItem="qKN-94-FS5" secondAttribute="centerX" id="ldP-3J-fvn"/>
                             <constraint firstItem="JUX-DO-gg4" firstAttribute="centerX" secondItem="qKN-94-FS5" secondAttribute="centerX" id="pLX-ie-0Ks"/>
                             <constraint firstItem="knR-ZV-awL" firstAttribute="centerY" secondItem="VEb-S5-6yO" secondAttribute="centerY" id="pRU-Am-m19"/>
@@ -442,6 +465,7 @@
                             <constraint firstItem="5nw-iv-gpT" firstAttribute="top" secondItem="CNW-Ij-4YC" secondAttribute="top" id="rgO-SW-6bn"/>
                             <constraint firstItem="5nw-iv-gpT" firstAttribute="width" secondItem="CNW-Ij-4YC" secondAttribute="width" id="sIj-V5-6GV"/>
                             <constraint firstItem="WdG-Oh-cjI" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="VEb-S5-6yO" secondAttribute="leading" constant="20" symbolic="YES" id="xOf-5y-W7p"/>
+                            <constraint firstItem="2xW-E5-2CL" firstAttribute="top" secondItem="PBm-2R-CV6" secondAttribute="top" id="zIf-lw-RWd"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="qKN-94-FS5"/>
                     </view>
@@ -452,7 +476,9 @@
                         <outlet property="cameraUnavailableLabel" destination="zVr-Is-vQi" id="ZXb-C7-3o2"/>
                         <outlet property="captureModeControl" destination="cuI-q2-LFJ" id="49k-Iy-19s"/>
                         <outlet property="capturingLivePhotoLabel" destination="tdJ-HM-dd0" id="NgJ-Ys-llD"/>
+                        <outlet property="dataLabel" destination="PBm-2R-CV6" id="86n-Us-q5o"/>
                         <outlet property="depthDataDeliveryButton" destination="JUX-DO-gg4" id="ysW-zr-oNS"/>
+                        <outlet property="instructionLabel" destination="2xW-E5-2CL" id="BdZ-Ua-4hE"/>
                         <outlet property="livePhotoModeButton" destination="dE6-qP-gmf" id="dt8-sN-sMJ"/>
                         <outlet property="photoButton" destination="5nw-iv-gpT" id="geg-zF-iOh"/>
                         <outlet property="previewView" destination="zWE-L5-bfe" id="Zc0-4i-5ZR"/>
@@ -467,7 +493,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-742" y="-263"/>
+            <point key="canvasLocation" x="-743.20000000000005" y="-263.11844077961024"/>
         </scene>
     </scenes>
 </document>

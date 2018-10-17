@@ -8,6 +8,7 @@
 
 #import "ModelController.h"
 #import "DataViewController.h"
+#import "AVCamCameraViewController.h"
 
 /*
  A controller object that manages a simple model -- a collection of month names.
@@ -53,14 +54,16 @@
     return self;
 }
 
-- (DataViewController *)viewControllerAtIndex:(NSUInteger)index storyboard:(UIStoryboard *)storyboard {
+- (AVCamCameraViewController *)viewControllerAtIndex:(NSUInteger)index storyboard:(UIStoryboard *)storyboard {
     // Return the data view controller for the given index.
     if (([self.pageData count] == 0) || (index >= [self.pageData count])) {
         return nil;
     }
 
     // Create a new view controller and pass suitable data.
-    DataViewController *dataViewController = [storyboard instantiateViewControllerWithIdentifier:@"DataViewController"];
+//    DataViewController *dataViewController = [storyboard instantiateViewControllerWithIdentifier:@"DataViewController"];
+    
+    AVCamCameraViewController *dataViewController = [storyboard instantiateViewControllerWithIdentifier:@"AVCamCameraViewController"];
     dataViewController.dataObject = self.pageData[index];
     return dataViewController;
 }
@@ -77,7 +80,7 @@
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController
 {
-    NSUInteger index = [self indexOfViewController:(DataViewController *)viewController];
+    NSUInteger index = [self indexOfViewController:(AVCamCameraViewController *)viewController];
     if ((index == 0) || (index == NSNotFound)) {
         return nil;
     }
@@ -88,7 +91,7 @@
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController
 {
-    NSUInteger index = [self indexOfViewController:(DataViewController *)viewController];
+    NSUInteger index = [self indexOfViewController:(AVCamCameraViewController *)viewController];
     if (index == NSNotFound) {
         return nil;
     }

@@ -93,6 +93,13 @@ typedef NS_ENUM( NSInteger, AVCamDepthDataDeliveryMode ) {
 @property (nonatomic, strong) AVCaptureMovieFileOutput *movieFileOutput;
 @property (nonatomic) UIBackgroundTaskIdentifier backgroundRecordingID;
 
+@property (nonatomic, strong) NSTimer *countdownTimer;
+@property (nonatomic, assign) int initSecs;
+
+@property (strong, nonatomic) IBOutlet UILabel *dataLabel;
+@property (strong, nonatomic) IBOutlet UILabel *instructionLabel;
+
+
 @end
 
 @implementation AVCamCameraViewController
@@ -186,6 +193,8 @@ typedef NS_ENUM( NSInteger, AVCamDepthDataDeliveryMode ) {
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
         self.captureModeControl.selectedSegmentIndex = AVCamCaptureModeMovie;
         [self toggleCaptureMode:self.captureModeControl];
+        
+        self.initSecs = 10;
     });
     
 }
@@ -246,6 +255,18 @@ typedef NS_ENUM( NSInteger, AVCamDepthDataDeliveryMode ) {
     } );
     
     [super viewDidDisappear:animated];
+}
+
+
+- (void)countdown:(id)data {
+    self.dataLabel.text = [NSString stringWithFormat:@"%d sec",self.initSecs--];
+    if (self.initSecs <= 0) {
+        //todo: move to the next one
+        [self.countdownTimer invalidate];
+        self.countdownTimer = nil;
+        // we stop the recording by mimicing the user's action
+        [self toggleMovieRecording:self.recordButton];
+    }
 }
 
 - (BOOL)shouldAutorotate
@@ -434,7 +455,7 @@ typedef NS_ENUM( NSInteger, AVCamDepthDataDeliveryMode ) {
                 
                 dispatch_async( dispatch_get_main_queue(), ^{
                     self.livePhotoModeButton.enabled = YES;
-                    self.livePhotoModeButton.hidden = NO;
+                    self.livePhotoModeButton.hidden = YES;
                 } );
             }
             
@@ -442,7 +463,7 @@ typedef NS_ENUM( NSInteger, AVCamDepthDataDeliveryMode ) {
                 self.photoOutput.depthDataDeliveryEnabled = YES;
                 
                 dispatch_async( dispatch_get_main_queue(), ^{
-                    self.depthDataDeliveryButton.hidden = NO;
+                    self.depthDataDeliveryButton.hidden = YES;
                     self.depthDataDeliveryButton.enabled = YES;
                 } );
             }
@@ -683,7 +704,7 @@ typedef NS_ENUM( NSInteger, AVCamDepthDataDeliveryMode ) {
                 NSInteger inProgressLivePhotoCapturesCount = self.inProgressLivePhotoCapturesCount;
                 dispatch_async( dispatch_get_main_queue(), ^{
                     if ( inProgressLivePhotoCapturesCount > 0 ) {
-                        self.capturingLivePhotoLabel.hidden = NO;
+                        self.capturingLivePhotoLabel.hidden = YES;
                     }
                     else if ( inProgressLivePhotoCapturesCount == 0 ) {
                         self.capturingLivePhotoLabel.hidden = YES;
@@ -792,6 +813,7 @@ typedef NS_ENUM( NSInteger, AVCamDepthDataDeliveryMode ) {
             NSString *outputFileName = [NSUUID UUID].UUIDString;
             NSString *outputFilePath = [NSTemporaryDirectory() stringByAppendingPathComponent:[outputFileName stringByAppendingPathExtension:@"mov"]];
             [self.movieFileOutput startRecordingToOutputFileURL:[NSURL fileURLWithPath:outputFilePath] recordingDelegate:self];
+            
         }
         else {
             [self.movieFileOutput stopRecording];
@@ -802,10 +824,14 @@ typedef NS_ENUM( NSInteger, AVCamDepthDataDeliveryMode ) {
 - (void)captureOutput:(AVCaptureFileOutput *)captureOutput didStartRecordingToOutputFileAtURL:(NSURL *)fileURL fromConnections:(NSArray *)connections
 {
     // Enable the Record button to let the user stop the recording.
-    NSLog(@"should this be called?!");
     dispatch_async( dispatch_get_main_queue(), ^{
         self.recordButton.enabled = YES;
         [self.recordButton setTitle:NSLocalizedString( @"Stop", @"Recording button stop title" ) forState:UIControlStateNormal];
+        
+        //start timer
+        if (self.countdownTimer!=nil) self.countdownTimer = nil;
+        self.countdownTimer = [NSTimer timerWithTimeInterval:1.0 target:self selector:@selector(countdown:) userInfo:nil repeats:YES];
+        [[NSRunLoop mainRunLoop] addTimer:self.countdownTimer forMode:NSRunLoopCommonModes];
     });
 }
 
@@ -873,6 +899,8 @@ typedef NS_ENUM( NSInteger, AVCamDepthDataDeliveryMode ) {
         self.recordButton.enabled = YES;
         self.captureModeControl.enabled = YES;
         [self.recordButton setTitle:NSLocalizedString( @"Record", @"Recording button record title" ) forState:UIControlStateNormal];
+        
+        //clean up timer
     });
 }
 
@@ -921,9 +949,9 @@ typedef NS_ENUM( NSInteger, AVCamDepthDataDeliveryMode ) {
             self.photoButton.enabled = isSessionRunning;
             self.captureModeControl.enabled = isSessionRunning;
             self.livePhotoModeButton.enabled = isSessionRunning && livePhotoCaptureEnabled;
-            self.livePhotoModeButton.hidden = ! ( isSessionRunning && livePhotoCaptureSupported );
+            self.livePhotoModeButton.hidden = YES; //! ( isSessionRunning && livePhotoCaptureSupported );
             self.depthDataDeliveryButton.enabled = isSessionRunning && depthDataDeliveryEnabled ;
-            self.depthDataDeliveryButton.hidden = ! ( isSessionRunning && depthDataDeliverySupported );
+            self.depthDataDeliveryButton.hidden = YES; //! ( isSessionRunning && depthDataDeliverySupported );
         } );
     }
     else {
