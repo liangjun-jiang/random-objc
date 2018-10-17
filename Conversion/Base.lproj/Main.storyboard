@@ -259,9 +259,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zWE-L5-bfe" userLabel="Preview" customClass="AVCamPreviewView">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="87.5" y="143.5" width="200" height="400"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="zWE-L5-bfe" secondAttribute="height" multiplier="1:2" id="4Gy-iC-clt"/>
+                                    <constraint firstAttribute="height" constant="400" id="AWs-1Z-weS"/>
+                                    <constraint firstAttribute="width" constant="200" id="jmK-Vb-KhQ"/>
+                                </constraints>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="dJi-tg-lmC" appends="YES" id="4UQ-uO-XGz"/>
                                 </connections>
@@ -295,6 +300,7 @@
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="Record">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
@@ -315,6 +321,7 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="Photo">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
@@ -331,6 +338,7 @@
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="Camera">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
@@ -343,11 +351,13 @@
                                 </connections>
                             </button>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="cuI-q2-LFJ" userLabel="Capture Mode">
-                                <rect key="frame" x="136" y="569" width="103" height="29"/>
+                                <rect key="frame" x="136" y="100" width="103" height="29"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <segments>
                                     <segment title="Photo"/>
                                     <segment title="Movie"/>
                                 </segments>
+                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <action selector="toggleCaptureMode:" destination="c9U-8e-hMa" eventType="valueChanged" id="r8G-eZ-S2L"/>
                                 </connections>
@@ -359,7 +369,9 @@
                                     <constraint firstAttribute="height" constant="25" id="SSQ-rN-Fad"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="Depth Data Delivery: On"/>
+                                <state key="normal" title="Depth Data Delivery: On">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                         <integer key="value" value="4"/>
@@ -376,7 +388,9 @@
                                     <constraint firstAttribute="height" constant="25" id="34L-Qr-1I9"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="Live Photo Mode: On"/>
+                                <state key="normal" title="Live Photo Mode: On">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                         <integer key="value" value="4"/>
@@ -399,18 +413,18 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="tdJ-HM-dd0" firstAttribute="top" secondItem="dE6-qP-gmf" secondAttribute="bottom" constant="8" id="1hH-Nc-UsM"/>
+                            <constraint firstItem="zWE-L5-bfe" firstAttribute="centerX" secondItem="qKN-94-FS5" secondAttribute="centerX" id="9Tw-xs-0CZ"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="CNW-Ij-4YC" secondAttribute="trailing" constant="20" symbolic="YES" id="9w3-xY-kzh"/>
                             <constraint firstItem="5nw-iv-gpT" firstAttribute="leading" secondItem="WdG-Oh-cjI" secondAttribute="trailing" constant="20" id="Ae7-hX-GF9"/>
-                            <constraint firstItem="5nw-iv-gpT" firstAttribute="top" secondItem="cuI-q2-LFJ" secondAttribute="bottom" constant="20" id="E9M-JE-rt9"/>
+                            <constraint firstItem="zWE-L5-bfe" firstAttribute="centerY" secondItem="qKN-94-FS5" secondAttribute="centerY" id="B2A-8b-G0m"/>
+                            <constraint firstItem="5nw-iv-gpT" firstAttribute="top" secondItem="cuI-q2-LFJ" secondAttribute="bottom" constant="489" id="E9M-JE-rt9"/>
                             <constraint firstItem="CNW-Ij-4YC" firstAttribute="leading" secondItem="WdG-Oh-cjI" secondAttribute="trailing" constant="120" id="FZ6-Jp-wAv"/>
                             <constraint firstItem="tdJ-HM-dd0" firstAttribute="centerX" secondItem="qKN-94-FS5" secondAttribute="centerX" id="FjJ-Ax-AWl"/>
-                            <constraint firstItem="zWE-L5-bfe" firstAttribute="trailing" secondItem="qKN-94-FS5" secondAttribute="trailing" id="HJ6-Aa-pxh"/>
-                            <constraint firstItem="zWE-L5-bfe" firstAttribute="bottom" secondItem="VEb-S5-6yO" secondAttribute="bottom" id="J9L-N4-t7B"/>
                             <constraint firstItem="zVr-Is-vQi" firstAttribute="centerY" secondItem="VEb-S5-6yO" secondAttribute="centerY" id="NcN-ap-dXc"/>
-                            <constraint firstItem="zWE-L5-bfe" firstAttribute="top" secondItem="VEb-S5-6yO" secondAttribute="top" id="ODT-ep-gh4"/>
                             <constraint firstItem="qKN-94-FS5" firstAttribute="bottom" secondItem="5nw-iv-gpT" secondAttribute="bottom" constant="20" id="Psc-Zy-esa"/>
                             <constraint firstItem="5nw-iv-gpT" firstAttribute="height" secondItem="CNW-Ij-4YC" secondAttribute="height" id="R6A-Lh-SWW"/>
                             <constraint firstItem="dE6-qP-gmf" firstAttribute="top" secondItem="JUX-DO-gg4" secondAttribute="bottom" constant="8" id="TQk-fy-0Mb"/>
@@ -427,7 +441,6 @@
                             <constraint firstItem="JUX-DO-gg4" firstAttribute="top" secondItem="qKN-94-FS5" secondAttribute="top" constant="8" id="qhJ-HJ-QfP"/>
                             <constraint firstItem="5nw-iv-gpT" firstAttribute="top" secondItem="CNW-Ij-4YC" secondAttribute="top" id="rgO-SW-6bn"/>
                             <constraint firstItem="5nw-iv-gpT" firstAttribute="width" secondItem="CNW-Ij-4YC" secondAttribute="width" id="sIj-V5-6GV"/>
-                            <constraint firstItem="zWE-L5-bfe" firstAttribute="leading" secondItem="qKN-94-FS5" secondAttribute="leading" id="vdK-Xr-7wd"/>
                             <constraint firstItem="WdG-Oh-cjI" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="VEb-S5-6yO" secondAttribute="leading" constant="20" symbolic="YES" id="xOf-5y-W7p"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="qKN-94-FS5"/>

@@ -178,6 +178,16 @@ typedef NS_ENUM( NSInteger, AVCamDepthDataDeliveryMode ) {
     dispatch_async( self.sessionQueue, ^{
         [self configureSession];
     } );
+    
+//    [self toggleCaptureMode:self.captureModeControl];
+    
+    double delayInSeconds = .5;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        self.captureModeControl.selectedSegmentIndex = AVCamCaptureModeMovie;
+        [self toggleCaptureMode:self.captureModeControl];
+    });
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -198,7 +208,7 @@ typedef NS_ENUM( NSInteger, AVCamDepthDataDeliveryMode ) {
             case AVCamSetupResultCameraNotAuthorized:
             {
                 dispatch_async( dispatch_get_main_queue(), ^{
-                    NSString *message = NSLocalizedString( @"AVCam doesn't have permission to use the camera, please change privacy settings", @"Alert message when the user has denied access to the camera" );
+                    NSString *message = NSLocalizedString( @"We don't have permission to use the camera, please change privacy settings", @"Alert message when the user has denied access to the camera" );
                     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"AVCam" message:message preferredStyle:UIAlertControllerStyleAlert];
                     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString( @"OK", @"Alert OK button" ) style:UIAlertActionStyleCancel handler:nil];
                     [alertController addAction:cancelAction];
@@ -282,14 +292,14 @@ typedef NS_ENUM( NSInteger, AVCamDepthDataDeliveryMode ) {
     // Add video input.
     
     // Choose the back dual camera if available, otherwise default to a wide angle camera.
-    AVCaptureDevice *videoDevice = [AVCaptureDevice defaultDeviceWithDeviceType:AVCaptureDeviceTypeBuiltInDualCamera mediaType:AVMediaTypeVideo position:AVCaptureDevicePositionBack];
+    AVCaptureDevice *videoDevice = [AVCaptureDevice defaultDeviceWithDeviceType:AVCaptureDeviceTypeBuiltInDualCamera mediaType:AVMediaTypeVideo position:AVCaptureDevicePositionFront];
     if ( ! videoDevice ) {
-        // If the back dual camera is not available, default to the back wide angle camera.
-        videoDevice = [AVCaptureDevice defaultDeviceWithDeviceType:AVCaptureDeviceTypeBuiltInWideAngleCamera mediaType:AVMediaTypeVideo position:AVCaptureDevicePositionBack];
-        
         // In some cases where users break their phones, the back wide angle camera is not available. In this case, we should default to the front wide angle camera.
+        videoDevice = [AVCaptureDevice defaultDeviceWithDeviceType:AVCaptureDeviceTypeBuiltInWideAngleCamera mediaType:AVMediaTypeVideo position:AVCaptureDevicePositionFront];
+        
         if ( ! videoDevice ) {
-            videoDevice = [AVCaptureDevice defaultDeviceWithDeviceType:AVCaptureDeviceTypeBuiltInWideAngleCamera mediaType:AVMediaTypeVideo position:AVCaptureDevicePositionFront];
+            // If the back dual camera is not available, default to the back wide angle camera.
+            videoDevice = [AVCaptureDevice defaultDeviceWithDeviceType:AVCaptureDeviceTypeBuiltInWideAngleCamera mediaType:AVMediaTypeVideo position:AVCaptureDevicePositionBack];
         }
     }
     AVCaptureDeviceInput *videoDeviceInput = [AVCaptureDeviceInput deviceInputWithDevice:videoDevice error:&error];
@@ -348,15 +358,15 @@ typedef NS_ENUM( NSInteger, AVCamDepthDataDeliveryMode ) {
     if ( [self.session canAddOutput:photoOutput] ) {
         [self.session addOutput:photoOutput];
         self.photoOutput = photoOutput;
-        
+
         self.photoOutput.highResolutionCaptureEnabled = YES;
         self.photoOutput.livePhotoCaptureEnabled = self.photoOutput.livePhotoCaptureSupported;
         self.photoOutput.depthDataDeliveryEnabled = self.photoOutput.depthDataDeliverySupported;
-        
+
         self.livePhotoMode = self.photoOutput.livePhotoCaptureSupported ? AVCamLivePhotoModeOn : AVCamLivePhotoModeOff;
         self.depthDataDeliveryMode = self.photoOutput.depthDataDeliverySupported ? AVCamDepthDataDeliveryModeOn : AVCamDepthDataDeliveryModeOff;
-        
-        
+
+
         self.inProgressPhotoCaptureDelegates = [NSMutableDictionary dictionary];
         self.inProgressLivePhotoCapturesCount = 0;
     }
@@ -369,9 +379,8 @@ typedef NS_ENUM( NSInteger, AVCamDepthDataDeliveryMode ) {
     
     self.backgroundRecordingID = UIBackgroundTaskInvalid;
     
-    
-    
     [self.session commitConfiguration];
+    
 }
 
 - (IBAction)resumeInterruptedSession:(id)sender
@@ -793,6 +802,7 @@ typedef NS_ENUM( NSInteger, AVCamDepthDataDeliveryMode ) {
 - (void)captureOutput:(AVCaptureFileOutput *)captureOutput didStartRecordingToOutputFileAtURL:(NSURL *)fileURL fromConnections:(NSArray *)connections
 {
     // Enable the Record button to let the user stop the recording.
+    NSLog(@"should this be called?!");
     dispatch_async( dispatch_get_main_queue(), ^{
         self.recordButton.enabled = YES;
         [self.recordButton setTitle:NSLocalizedString( @"Stop", @"Recording button stop title" ) forState:UIControlStateNormal];
@@ -904,6 +914,8 @@ typedef NS_ENUM( NSInteger, AVCamDepthDataDeliveryMode ) {
         
         dispatch_async( dispatch_get_main_queue(), ^{
             // Only enable the ability to change camera if the device has more than one camera.
+//            self.captureModeControl.selectedSegmentIndex = AVCamCaptureModeMovie;
+            
             self.cameraButton.enabled = isSessionRunning && ( self.videoDeviceDiscoverySession.uniqueDevicePositionsCount > 1 );
             self.recordButton.enabled = isSessionRunning && ( self.captureModeControl.selectedSegmentIndex == AVCamCaptureModeMovie );
             self.photoButton.enabled = isSessionRunning;

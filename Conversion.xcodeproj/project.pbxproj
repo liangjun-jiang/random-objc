@@ -20,6 +20,7 @@
 		53BA80C021756BEC0078DC5E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 53BA80BF21756BEC0078DC5E /* main.m */; };
 		53BA80C821756F660078DC5E /* SignUpLogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 53BA80C721756F660078DC5E /* SignUpLogInViewController.m */; };
 		53BA80CB21756F7B0078DC5E /* TermsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 53BA80CA21756F7B0078DC5E /* TermsViewController.m */; };
+		9A1C45E25AC7372B8E176ACC /* libPods-Conversion.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8746B7B7C8D30D76E4B9A270 /* libPods-Conversion.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +48,9 @@
 		53BA80C721756F660078DC5E /* SignUpLogInViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SignUpLogInViewController.m; sourceTree = "<group>"; };
 		53BA80C921756F7B0078DC5E /* TermsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TermsViewController.h; sourceTree = "<group>"; };
 		53BA80CA21756F7B0078DC5E /* TermsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TermsViewController.m; sourceTree = "<group>"; };
+		8746B7B7C8D30D76E4B9A270 /* libPods-Conversion.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Conversion.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F1FD679BBEB9C67066B134F9 /* Pods-Conversion.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Conversion.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Conversion/Pods-Conversion.debug.xcconfig"; sourceTree = "<group>"; };
+		FE0F78957B68E4A4AE4B8DF7 /* Pods-Conversion.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Conversion.release.xcconfig"; path = "Pods/Target Support Files/Pods-Conversion/Pods-Conversion.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,17 +58,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A1C45E25AC7372B8E176ACC /* libPods-Conversion.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		30BC9F07070CBF182BBD7D23 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F1FD679BBEB9C67066B134F9 /* Pods-Conversion.debug.xcconfig */,
+				FE0F78957B68E4A4AE4B8DF7 /* Pods-Conversion.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		53BA809E21756BEA0078DC5E = {
 			isa = PBXGroup;
 			children = (
 				53BA80A921756BEA0078DC5E /* Conversion */,
 				53BA80A821756BEA0078DC5E /* Products */,
+				30BC9F07070CBF182BBD7D23 /* Pods */,
+				FCBC7D04C138FE3D8EA3DF3C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -106,6 +122,14 @@
 			path = Conversion;
 			sourceTree = "<group>";
 		};
+		FCBC7D04C138FE3D8EA3DF3C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8746B7B7C8D30D76E4B9A270 /* libPods-Conversion.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -113,9 +137,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 53BA80C321756BEC0078DC5E /* Build configuration list for PBXNativeTarget "Conversion" */;
 			buildPhases = (
+				C0F475DAD7255DD06875E6F3 /* [CP] Check Pods Manifest.lock */,
 				53BA80A321756BEA0078DC5E /* Sources */,
 				53BA80A421756BEA0078DC5E /* Frameworks */,
 				53BA80A521756BEA0078DC5E /* Resources */,
+				1BCA1CD977CA4042A0AAFB74 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -170,6 +196,53 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1BCA1CD977CA4042A0AAFB74 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Conversion/Pods-Conversion-resources.sh",
+				"${PODS_ROOT}/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SVProgressHUD.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Conversion/Pods-Conversion-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C0F475DAD7255DD06875E6F3 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Conversion-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		53BA80A321756BEA0078DC5E /* Sources */ = {
@@ -325,6 +398,7 @@
 		};
 		53BA80C421756BEC0078DC5E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F1FD679BBEB9C67066B134F9 /* Pods-Conversion.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -344,6 +418,7 @@
 		};
 		53BA80C521756BEC0078DC5E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FE0F78957B68E4A4AE4B8DF7 /* Pods-Conversion.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
