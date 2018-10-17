@@ -52,7 +52,7 @@
         [self.navigationController pushViewController:vc animated:YES];
     } else {
         UIWindow *window = [[UIApplication sharedApplication] keyWindow];
-        window.rootViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"RootViewController"];
+        window.rootViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"CameraNavigationController"];
     }
 }
 @end

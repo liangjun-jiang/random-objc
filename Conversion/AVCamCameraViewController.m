@@ -96,9 +96,16 @@ typedef NS_ENUM( NSInteger, AVCamDepthDataDeliveryMode ) {
 @property (nonatomic, strong) NSTimer *countdownTimer;
 @property (nonatomic, assign) int initSecs;
 
+@property (nonatomic, assign) int currentIndex;
+
+
 @property (strong, nonatomic) IBOutlet UILabel *dataLabel;
 @property (strong, nonatomic) IBOutlet UILabel *instructionLabel;
 
+
+
+@property (readonly, strong, nonatomic) NSArray *samplePageData;
+@property (readonly, strong, nonatomic) NSArray *pageData;
 
 @end
 
@@ -193,10 +200,9 @@ typedef NS_ENUM( NSInteger, AVCamDepthDataDeliveryMode ) {
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
         self.captureModeControl.selectedSegmentIndex = AVCamCaptureModeMovie;
         [self toggleCaptureMode:self.captureModeControl];
-        
-        self.initSecs = 10;
     });
     
+    [self initData];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -257,17 +263,6 @@ typedef NS_ENUM( NSInteger, AVCamDepthDataDeliveryMode ) {
     [super viewDidDisappear:animated];
 }
 
-
-- (void)countdown:(id)data {
-    self.dataLabel.text = [NSString stringWithFormat:@"%d sec",self.initSecs--];
-    if (self.initSecs <= 0) {
-        //todo: move to the next one
-        [self.countdownTimer invalidate];
-        self.countdownTimer = nil;
-        // we stop the recording by mimicing the user's action
-        [self toggleMovieRecording:self.recordButton];
-    }
-}
 
 - (BOOL)shouldAutorotate
 {
@@ -810,7 +805,11 @@ typedef NS_ENUM( NSInteger, AVCamDepthDataDeliveryMode ) {
             }
             
             // Start recording to a temporary file.
-            NSString *outputFileName = [NSUUID UUID].UUIDString;
+            NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
+            [formatter setDateFormat:@"yyyy-MM-dd-HH-mm"];
+            NSDate* now = [NSDate date];
+            
+            NSString *outputFileName = [NSString stringWithFormat:@"%@-%d", [formatter stringFromDate:now], self.currentIndex];
             NSString *outputFilePath = [NSTemporaryDirectory() stringByAppendingPathComponent:[outputFileName stringByAppendingPathExtension:@"mov"]];
             [self.movieFileOutput startRecordingToOutputFileURL:[NSURL fileURLWithPath:outputFilePath] recordingDelegate:self];
             
@@ -851,10 +850,10 @@ typedef NS_ENUM( NSInteger, AVCamDepthDataDeliveryMode ) {
     self.backgroundRecordingID = UIBackgroundTaskInvalid;
     
     dispatch_block_t cleanUp = ^{
-        if ( [[NSFileManager defaultManager] fileExistsAtPath:outputFileURL.path] ) {
-            [[NSFileManager defaultManager] removeItemAtPath:outputFileURL.path error:NULL];
-        }
-        
+//        if ( [[NSFileManager defaultManager] fileExistsAtPath:outputFileURL.path] ) {
+//            [[NSFileManager defaultManager] removeItemAtPath:outputFileURL.path error:NULL];
+//        }
+//
         if ( currentBackgroundRecordingID != UIBackgroundTaskInvalid ) {
             [[UIApplication sharedApplication] endBackgroundTask:currentBackgroundRecordingID];
         }
@@ -935,9 +934,9 @@ typedef NS_ENUM( NSInteger, AVCamDepthDataDeliveryMode ) {
 {
     if ( context == SessionRunningContext ) {
         BOOL isSessionRunning = [change[NSKeyValueChangeNewKey] boolValue];
-        BOOL livePhotoCaptureSupported = self.photoOutput.livePhotoCaptureSupported;
+//        BOOL livePhotoCaptureSupported = self.photoOutput.livePhotoCaptureSupported;
         BOOL livePhotoCaptureEnabled = self.photoOutput.livePhotoCaptureEnabled;
-        BOOL depthDataDeliverySupported = self.photoOutput.depthDataDeliverySupported;
+//        BOOL depthDataDeliverySupported = self.photoOutput.depthDataDeliverySupported;
         BOOL depthDataDeliveryEnabled = self.photoOutput.depthDataDeliveryEnabled;
         
         dispatch_async( dispatch_get_main_queue(), ^{
@@ -1050,6 +1049,56 @@ typedef NS_ENUM( NSInteger, AVCamDepthDataDeliveryMode ) {
         }];
     }
 }
+
+#pragma mark Business Logic
+
+-(void)initData {
+    _samplePageData = @[@{@"index":@0, @"title":@"Stage 1: Video Collection", @"instruction":@"Step 1: Please put your face in the circle"},
+                        @{@"index":@1, @"title":@"Stage 2: ", @"instruction":@"Step 2: Play your video"}];
+    
+    _pageData = @[
+                  @{@"index":@0, @"instruction":@"Please keep calm on your face and press the record button and hold for 10 sec (do not talk)"},
+                  @{@"index":@1, @"instruction":@"Please keep smile on your face and press the record button and hold for 10 sec (do not talk)"},
+                  @{@"index":@2, @"instruction":@"Please keep unhappy on your face and press the record button and hold for 10 sec (do not talk)"},
+                  @{@"index":@3, @"instruction":@"Please keep angry on your face and press the record button and hold for 10 sec (do not talk)"},
+                  @{@"index":@4, @"instruction":@"Please keep surprise on your face and press the record button and hold for 10 sec (do not talk)"},
+                  @{@"index":@5, @"instruction":@"Please keep sad on your face and press the record button and hold for 10 sec (do not talk)"},
+                  @{@"index":@6, @"instruction":@"Please keep calm on your face and keep talking with your mouth moving but don't make any sound and press the record button and hold for 10 sec "},
+                  @{@"index":@7, @"instruction":@"Please keep smile on your face and keep talking with your mouth moving but don't make any sound and press the record button and hold for 10 sec"},
+                  @{@"index":@8, @"instruction":@"Please keep unhappy on your face and keep talking with your mouth moving but don't make any sound and press the record button and hold for 10 sec"},
+                  @{@"index":@9, @"instruction":@"Please keep angry emotion on your face and keep talking with your mouth moving but don't make any sound and press the record button and hold for 10 sec"},
+                  @{@"index":@10, @"instruction":@"Please keep surprise emotion on your face and keep talking with your mouth moving but don't make any sound and press the record button and hold for 10 sec"},
+                  @{@"index":@11, @"instruction":@"Please keep sad emotion on your face and keep talking with your mouth moving but don't make any sound and press the record button and hold for 10 sec"}
+                  ];
+    
+    _currentIndex = 0;
+    self.initSecs = 10;
+    
+    self.dataLabel.text = [NSString stringWithFormat:@"%d sec",self.initSecs];
+    self.instructionLabel.text = [NSString stringWithFormat:@"Step %d: %@", self.currentIndex + 1, self.pageData[self.currentIndex][@"instruction"]];
+}
+
+- (void)countdown:(id)data {
+    self.dataLabel.text = [NSString stringWithFormat:@"%d sec",self.initSecs--];
+    if (self.initSecs < 0) {
+        //todo: move to the next one
+        [self.countdownTimer invalidate];
+        self.countdownTimer = nil;
+        // we stop the recording by mimicing the user's action
+        [self toggleMovieRecording:self.recordButton];
+        
+        if (self.currentIndex < [self.pageData count]) {
+            self.initSecs = 10;
+            self.currentIndex++;
+            self.instructionLabel.text = [NSString stringWithFormat:@"Step %d: %@", self.currentIndex + 1, self.pageData[self.currentIndex][@"instruction"]];
+        }
+    }
+}
+
+- (IBAction)onCancel:(id)sender {
+    NSLog(@"canceled");
+}
+
 
 @end
 

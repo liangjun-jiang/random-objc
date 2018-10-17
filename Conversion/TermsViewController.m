@@ -36,7 +36,7 @@
 -(IBAction)onAgree:(id)sender {
     [self saveUserChoice:YES];
     UIWindow *window = [[UIApplication sharedApplication] keyWindow];
-    window.rootViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"RootViewController"];
+    window.rootViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"CameraNavigationController"];
 }
 
 -(IBAction)onNotAgree:(id)sender {
