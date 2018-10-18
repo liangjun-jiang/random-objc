@@ -810,7 +810,9 @@ typedef NS_ENUM( NSInteger, AVCamDepthDataDeliveryMode ) {
             NSDate* now = [NSDate date];
             
             NSString *outputFileName = [NSString stringWithFormat:@"%@-%d", [formatter stringFromDate:now], self.currentIndex];
-            NSString *outputFilePath = [NSTemporaryDirectory() stringByAppendingPathComponent:[outputFileName stringByAppendingPathExtension:@"mov"]];
+            NSArray *dirs = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+            NSString *documentsDirectoryPath = [dirs objectAtIndex:0];
+            NSString *outputFilePath = [documentsDirectoryPath stringByAppendingPathComponent:[outputFileName stringByAppendingPathExtension:@"mov"]];
             [self.movieFileOutput startRecordingToOutputFileURL:[NSURL fileURLWithPath:outputFilePath] recordingDelegate:self];
             
         }
@@ -898,8 +900,6 @@ typedef NS_ENUM( NSInteger, AVCamDepthDataDeliveryMode ) {
         self.recordButton.enabled = YES;
         self.captureModeControl.enabled = YES;
         [self.recordButton setTitle:NSLocalizedString( @"Record", @"Recording button record title" ) forState:UIControlStateNormal];
-        
-        //clean up timer
     });
 }
 

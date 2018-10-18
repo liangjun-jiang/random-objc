@@ -41,6 +41,12 @@
     [self presentTermsViewController];
 }
 
+- (IBAction)loginAsUser:(id)sender {
+    UINavigationController *navController = [self.storyboard instantiateViewControllerWithIdentifier:@"ConversionNavController"];
+    [self.navigationController presentViewController:navController animated:YES completion:nil];
+}
+
+
 - (void)saveLoggedInOrSignedUp {
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isLoggedIn"];
     [[NSUserDefaults standardUserDefaults] synchronize];
