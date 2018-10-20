@@ -7,4 +7,5 @@ target 'Conversion' do
 
   # Pods for Conversion
   pod 'SVProgressHUD'
+  pod 'Parse'
 end

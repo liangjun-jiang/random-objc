@@ -1,16 +1,26 @@
 PODS:
+  - Bolts/Tasks (1.9.0)
+  - Parse (1.16.0):
+    - Parse/Core (= 1.16.0)
+  - Parse/Core (1.16.0):
+    - Bolts/Tasks (~> 1.9)
   - SVProgressHUD (2.2.2)
 
 DEPENDENCIES:
+  - Parse
   - SVProgressHUD
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - Bolts
+    - Parse
     - SVProgressHUD
 
 SPEC CHECKSUMS:
+  Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
+  Parse: 5b36dc2c2f0a2fd82a257ae018bc3d68cf2c24e7
   SVProgressHUD: 59b2d3dabacbd051576d21d32293ca7228dc18b0
 
-PODFILE CHECKSUM: d983a35c15b432054d6dc288108ed5f0df3ee0d1
+PODFILE CHECKSUM: cef953be67398e1412673088db97af1a4a67ad83
 
 COCOAPODS: 1.5.3
