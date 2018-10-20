@@ -818,6 +818,12 @@ typedef NS_ENUM( NSInteger, AVCamDepthDataDeliveryMode ) {
         }
         else {
             [self.movieFileOutput stopRecording];
+            
+            //invalid timer && update UI
+            [self.countdownTimer invalidate];
+            self.initSecs = 10;
+//            self.instructionLabel.text = [NSString stringWithFormat:@"Step %d: %@", self.currentIndex + 1, self.pageData[self.currentIndex][@"instruction"]];
+//            self.currentIndex++;
         }
     } );
 }
@@ -852,6 +858,7 @@ typedef NS_ENUM( NSInteger, AVCamDepthDataDeliveryMode ) {
     self.backgroundRecordingID = UIBackgroundTaskInvalid;
     
     dispatch_block_t cleanUp = ^{
+        NSLog(@"I am cleaning up");
 //        if ( [[NSFileManager defaultManager] fileExistsAtPath:outputFileURL.path] ) {
 //            [[NSFileManager defaultManager] removeItemAtPath:outputFileURL.path error:NULL];
 //        }
@@ -867,31 +874,35 @@ typedef NS_ENUM( NSInteger, AVCamDepthDataDeliveryMode ) {
         NSLog( @"Movie file finishing error: %@", error );
         success = [error.userInfo[AVErrorRecordingSuccessfullyFinishedKey] boolValue];
     }
-    if ( success ) {
+    
+    cleanUp();
+//    if ( success ) {
         // Check authorization status.
-        [PHPhotoLibrary requestAuthorization:^( PHAuthorizationStatus status ) {
-            if ( status == PHAuthorizationStatusAuthorized ) {
-                // Save the movie file to the photo library and cleanup.
-                [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
-                    PHAssetResourceCreationOptions *options = [[PHAssetResourceCreationOptions alloc] init];
-                    options.shouldMoveFile = YES;
-                    PHAssetCreationRequest *creationRequest = [PHAssetCreationRequest creationRequestForAsset];
-                    [creationRequest addResourceWithType:PHAssetResourceTypeVideo fileURL:outputFileURL options:options];
-                } completionHandler:^( BOOL success, NSError *error ) {
-                    if ( ! success ) {
-                        NSLog( @"Could not save movie to photo library: %@", error );
-                    }
-                    cleanUp();
-                }];
-            }
-            else {
-                cleanUp();
-            }
-        }];
-    }
-    else {
-        cleanUp();
-    }
+//        [PHPhotoLibrary requestAuthorization:^( PHAuthorizationStatus status ) {
+//            if ( status == PHAuthorizationStatusAuthorized ) {
+//                // Save the movie file to the photo library and cleanup.
+//                [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
+//                    PHAssetResourceCreationOptions *options = [[PHAssetResourceCreationOptions alloc] init];
+//                    options.shouldMoveFile = NO;
+//                    PHAssetCreationRequest *creationRequest = [PHAssetCreationRequest creationRequestForAsset];
+//                    [creationRequest addResourceWithType:PHAssetResourceTypeVideo fileURL:outputFileURL options:options];
+//                } completionHandler:^( BOOL success, NSError *error ) {
+//                    if ( ! success ) {
+//                        NSLog( @"Could not save movie to photo library: %@", error );
+//                    }
+//                    cleanUp();
+//                }];
+//            }
+//            cleanUp();
+//            else {
+//                cleanUp();
+//            }
+//        }];
+//        cleanUp();
+//    }
+//    else {
+//        cleanUp();
+//    }
     
     // Enable the Camera and Record buttons to let the user switch camera and start another recording.
     dispatch_async( dispatch_get_main_queue(), ^{
