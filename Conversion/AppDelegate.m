@@ -70,7 +70,7 @@
         configuration.clientKey = @"UA_CLIENT_KEY";
         
         // Uncomment the following line and change to your Parse Server address;
-        configuration.server = @"http://localhost:1337/parse";
+        configuration.server = @"http://192.168.86.54:1337/parse";
         
         // Enable storing and querying data from Local Datastore. Remove this line if you don't want to
         // use Local Datastore features or want to use cachePolicy.

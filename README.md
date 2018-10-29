@@ -16,4 +16,13 @@ curl -X POST \
 http://localhost:1337/parse/classes/GameScore
 ```
 
+4. step 4
+```
+curl -X GET \
+-H "X-Parse-Application-Id: UA_APPLICATION_ID" \
+-H "X-Parse-Client-Key: UA_CLIENT_KEY" \
+-H "Content-Type: application/json" \
+http://localhost:1337/parse/classes/Sample
+```
+
 

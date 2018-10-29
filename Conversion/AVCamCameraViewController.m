@@ -6,10 +6,13 @@
  */
 @import AVFoundation;
 @import Photos;
+@import VideoToolbox;
 
 #import "AVCamCameraViewController.h"
 #import "AVCamPreviewView.h"
 #import "AVCamPhotoCaptureDelegate.h"
+#import "Parse/Parse.h"
+#import "SVProgressHUD.h"
 
 static void * SessionRunningContext = &SessionRunningContext;
 
@@ -799,16 +802,17 @@ typedef NS_ENUM( NSInteger, AVCamDepthDataDeliveryMode ) {
             AVCaptureConnection *movieFileOutputConnection = [self.movieFileOutput connectionWithMediaType:AVMediaTypeVideo];
             movieFileOutputConnection.videoOrientation = videoPreviewLayerVideoOrientation;
             
+            NSDictionary *settings = @{ AVVideoCodecKey:AVVideoCodecTypeHEVC,
+                                        AVVideoCompressionPropertiesKey:@{
+                                                AVVideoProfileLevelKey : (__bridge NSString *)kVTProfileLevel_HEVC_Main_AutoLevel,
+                                                AVVideoAverageBitRateKey: @4500000,
+                                                AVVideoAllowFrameReorderingKey:@NO,
+                                                AVVideoExpectedSourceFrameRateKey: @(30)
+                                                }
+                                        };
             // Use HEVC codec if supported
             if ( [self.movieFileOutput.availableVideoCodecTypes containsObject:AVVideoCodecTypeHEVC] ) {
-                [self.movieFileOutput setOutputSettings:@{ AVVideoCodecKey : AVVideoCodecTypeHEVC,
-                                                           AVVideoWidthKey:@(640),
-                                                           AVVideoHeightKey:@(480),
-                                                           AVVideoCompressionPropertiesKey:
-                                                               @{AVVideoAverageBitRateKey:@(3750),
-                                                                 AVVideoProfileLevelKey:AVVideoProfileLevelH264Main31, /* Or whatever profile & level you wish to use */
-                                                                 AVVideoMaxKeyFrameIntervalKey:@(desired_keyframe_interval)}
-                                                           } forConnection:movieFileOutputConnection];
+                [self.movieFileOutput setOutputSettings:settings forConnection:movieFileOutputConnection];
             }
             
             // Start recording to a temporary file.
@@ -883,33 +887,25 @@ typedef NS_ENUM( NSInteger, AVCamDepthDataDeliveryMode ) {
     }
     
     cleanUp();
-//    if ( success ) {
-        // Check authorization status.
-//        [PHPhotoLibrary requestAuthorization:^( PHAuthorizationStatus status ) {
-//            if ( status == PHAuthorizationStatusAuthorized ) {
-//                // Save the movie file to the photo library and cleanup.
-//                [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
-//                    PHAssetResourceCreationOptions *options = [[PHAssetResourceCreationOptions alloc] init];
-//                    options.shouldMoveFile = NO;
-//                    PHAssetCreationRequest *creationRequest = [PHAssetCreationRequest creationRequestForAsset];
-//                    [creationRequest addResourceWithType:PHAssetResourceTypeVideo fileURL:outputFileURL options:options];
-//                } completionHandler:^( BOOL success, NSError *error ) {
-//                    if ( ! success ) {
-//                        NSLog( @"Could not save movie to photo library: %@", error );
-//                    }
-//                    cleanUp();
-//                }];
-//            }
-//            cleanUp();
-//            else {
-//                cleanUp();
-//            }
-//        }];
-//        cleanUp();
-//    }
-//    else {
-//        cleanUp();
-//    }
+    
+    if (success) {
+        NSData *videoData = [NSData dataWithContentsOfURL:outputFileURL];
+        PFFile *videoFile = [PFFile fileWithName:[outputFileURL lastPathComponent] data:videoData];
+        [videoFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+            if (!error) {
+                PFObject *sample = [PFObject objectWithClassName:@"Sample"];
+                [sample setObject:videoFile forKey:@"videoFile"];
+                [sample setObject:[PFUser currentUser] forKey:@"owner"];
+                [sample saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+                    if (!error) {
+                         dispatch_async( dispatch_get_main_queue(), ^{
+                             [SVProgressHUD showSuccessWithStatus:@"Video Uploaded"];
+                         });
+                    }
+                }];
+            }
+        }];
+    }
     
     // Enable the Camera and Record buttons to let the user switch camera and start another recording.
     dispatch_async( dispatch_get_main_queue(), ^{
