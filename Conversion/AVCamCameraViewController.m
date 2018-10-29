@@ -801,7 +801,14 @@ typedef NS_ENUM( NSInteger, AVCamDepthDataDeliveryMode ) {
             
             // Use HEVC codec if supported
             if ( [self.movieFileOutput.availableVideoCodecTypes containsObject:AVVideoCodecTypeHEVC] ) {
-                [self.movieFileOutput setOutputSettings:@{ AVVideoCodecKey : AVVideoCodecTypeHEVC } forConnection:movieFileOutputConnection];
+                [self.movieFileOutput setOutputSettings:@{ AVVideoCodecKey : AVVideoCodecTypeHEVC,
+                                                           AVVideoWidthKey:@(640),
+                                                           AVVideoHeightKey:@(480),
+                                                           AVVideoCompressionPropertiesKey:
+                                                               @{AVVideoAverageBitRateKey:@(3750),
+                                                                 AVVideoProfileLevelKey:AVVideoProfileLevelH264Main31, /* Or whatever profile & level you wish to use */
+                                                                 AVVideoMaxKeyFrameIntervalKey:@(desired_keyframe_interval)}
+                                                           } forConnection:movieFileOutputConnection];
             }
             
             // Start recording to a temporary file.
