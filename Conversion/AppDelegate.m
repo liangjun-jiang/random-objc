@@ -54,7 +54,7 @@
     // Override point for customization after application launch.
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{@"isLoggedIn":@NO, @"isAcceptedTerm": @NO}];
     
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"isLoggedIn"]) {
+    if ([PFUser currentUser]) {
         UIStoryboard *mainStoryborad = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         UIWindow *window = [[UIApplication sharedApplication] keyWindow];
         window.rootViewController = [mainStoryborad instantiateViewControllerWithIdentifier:@"RootViewController"];
@@ -64,20 +64,20 @@
 - (void)initParse {
     [Parse initializeWithConfiguration:[ParseClientConfiguration configurationWithBlock:^(id<ParseMutableClientConfiguration>  _Nonnull configuration) {
         // Add your Parse applicationId:
-        configuration.applicationId = @"your_application_id";
+        configuration.applicationId = @"UA_APPLICATION_ID";
         
         // Uncomment and add your clientKey (it's not required if you are using Parse Server):
-        configuration.clientKey = @"your_client_key";
+        configuration.clientKey = @"UA_CLIENT_KEY";
         
         // Uncomment the following line and change to your Parse Server address;
-        configuration.server = @"https://YOUR_PARSE_SERVER/parse";
+        configuration.server = @"http://localhost:1337/parse";
         
         // Enable storing and querying data from Local Datastore. Remove this line if you don't want to
         // use Local Datastore features or want to use cachePolicy.
         configuration.localDatastoreEnabled = YES;
     }]];
     
-    [PFUser enableAutomaticUser];
+//    [PFUser enableAutomaticUser];
     
     PFACL *defaultACL = [PFACL ACL];
     

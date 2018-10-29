@@ -8,8 +8,17 @@
 
 #import "SignUpLogInViewController.h"
 #import "TermsViewController.h"
+#import "Parse/Parse.h"
+#import "SVProgressHUD.h"
 
 @interface SignUpLogInViewController ()
+@property (nonatomic, weak) IBOutlet UITextField *signUpUserNameTextField;
+@property (nonatomic, weak) IBOutlet UITextField *signUpPasswordTextField;
+@property (nonatomic, weak) IBOutlet UITextField *signUpEmailTextField;
+
+@property (nonatomic, weak) IBOutlet UITextField *loginUserNameTextField;
+@property (nonatomic, weak) IBOutlet UITextField *loginPasswordTextField;
+@property (nonatomic, weak) IBOutlet UITextField *loginEmailTextField;
 
 @end
 
@@ -32,16 +41,44 @@
 
 
 -(IBAction)onSignUp:(id)sender {
-    [self saveLoggedInOrSignedUp];
-    [self presentTermsViewController];
+    NSString *userName = [self.signUpUserNameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    NSString *password = [self.signUpPasswordTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    NSString *email = [self.signUpEmailTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    PFUser *user = [PFUser user];
+    user.username = userName;
+    user.password = password;
+    
+    if (email) {
+        user.email = email;
+    }
+    
+    [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        if (!error) {
+            [self saveLoggedInOrSignedUp];
+            [self presentTermsViewController];
+        } else {
+             [SVProgressHUD showErrorWithStatus: [error localizedDescription]];
+        }
+    }];
 }
 
 -(IBAction)onLogin:(id)sender {
-    [self saveLoggedInOrSignedUp];
-    [self presentTermsViewController];
+    NSString *userName = [self.loginUserNameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    NSString *password = [self.loginPasswordTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    NSString *email = [self.loginEmailTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    [PFUser logInWithUsernameInBackground:userName password:password block:^(PFUser *user, NSError *error){
+        if (!error) {
+            [self saveLoggedInOrSignedUp];
+            [self presentTermsViewController];
+        } else {
+            [SVProgressHUD showErrorWithStatus: [error localizedDescription]];
+        }
+    }];
 }
 
 - (IBAction)loginAsUser:(id)sender {
+    
+    
     UINavigationController *navController = [self.storyboard instantiateViewControllerWithIdentifier:@"ConversionNavController"];
     [self.navigationController presentViewController:navController animated:YES completion:nil];
 }
