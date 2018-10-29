@@ -52,12 +52,11 @@
 
 - (void)houseKeeping {
     // Override point for customization after application launch.
-    [[NSUserDefaults standardUserDefaults] registerDefaults:@{@"isLoggedIn":@NO, @"isAcceptedTerm": @NO}];
+    [[NSUserDefaults standardUserDefaults] registerDefaults:@{@"isAcceptedTerm": @NO}];
     
     if ([PFUser currentUser]) {
         UIStoryboard *mainStoryborad = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        UIWindow *window = [[UIApplication sharedApplication] keyWindow];
-        window.rootViewController = [mainStoryborad instantiateViewControllerWithIdentifier:@"RootViewController"];
+        self.window.rootViewController = [mainStoryborad instantiateViewControllerWithIdentifier:@"RootViewController"];
     }
 }
 
