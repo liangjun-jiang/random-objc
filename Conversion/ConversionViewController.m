@@ -9,7 +9,6 @@
 @import Foundation;
 @import AVFoundation;
 @import CoreMedia.CMTime;
-@import ParseLiveQuery;
 
 #import "ConversionViewController.h"
 #import "AAPLPlayerView.h"
