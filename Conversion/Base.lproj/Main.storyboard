@@ -196,11 +196,11 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xuI-D1-7pO">
-                                <rect key="frame" x="232" y="617" width="40" height="30"/>
+                                <rect key="frame" x="234" y="617" width="36" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Share"/>
+                                <state key="normal" title="Send"/>
                                 <connections>
-                                    <action selector="onShare:" destination="ccf-ek-0JP" eventType="touchUpInside" id="J0u-xu-FCa"/>
+                                    <action selector="onSend:" destination="ccf-ek-0JP" eventType="touchUpInside" id="Q1Q-rp-6dZ"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="plV-Ca-JHx">

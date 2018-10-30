@@ -173,6 +173,19 @@
     [SVProgressHUD showInfoWithStatus:@"not ready yet"];
 }
 
+- (IBAction)onSend:(id)sender {
+    Message *message = [[Message alloc] init];
+    message.agentThinks = self.agentThinksContentLabel.text;
+    message.agentSays = self.agentSaysContentLabel.text;
+    message.userSays = [self.userSaysTextView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    [message saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        if (!error) {
+            NSLog(@"message sent");
+        }
+    }];
+}
+
+
 
 #pragma mark - UITextView Delegate
 - (BOOL)textViewShouldEndEditing:(UITextView *)textView {
