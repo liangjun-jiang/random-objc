@@ -171,14 +171,6 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mB1-am-e4v">
-                                <rect key="frame" x="16" y="506" width="343" height="74"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.50196081400000003" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kqw-tZ-ffv">
                                 <rect key="frame" x="20" y="617" width="39" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -228,6 +220,17 @@
                                     <constraint firstAttribute="width" constant="126" id="Pte-Hs-zDz"/>
                                 </constraints>
                             </view>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Use what you said.." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="BQ8-gG-DO7">
+                                <rect key="frame" x="16" y="506" width="343" height="92"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="textColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <connections>
+                                    <outlet property="delegate" destination="ccf-ek-0JP" id="9FW-5n-U50"/>
+                                </connections>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -238,8 +241,13 @@
                     </view>
                     <navigationItem key="navigationItem" id="1RB-O5-SOB"/>
                     <connections>
+                        <outlet property="agentSaysContentLabel" destination="tQx-Gf-Vwf" id="vlh-Uv-bXe"/>
+                        <outlet property="agentThinksContentLabel" destination="dYV-B4-4Ry" id="bcf-KF-gHa"/>
+                        <outlet property="correctButton" destination="9hh-fw-3qG" id="kjZ-ph-jnJ"/>
                         <outlet property="playPauseButton" destination="QW9-wu-HPU" id="XYp-8s-WeX"/>
                         <outlet property="playerView" destination="M6Z-yk-vCd" id="pRL-RB-tlw"/>
+                        <outlet property="resetButton" destination="Kqw-tZ-ffv" id="2nq-oK-bOo"/>
+                        <outlet property="userSaysTextView" destination="BQ8-gG-DO7" id="Tgx-hh-usP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PaV-T5-MxG" userLabel="First Responder" sceneMemberID="firstResponder"/>

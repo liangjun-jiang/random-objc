@@ -10,6 +10,7 @@
 #import "Parse.h"
 #import "Message.h"
 #import "Room.h"
+#import "Sample.h"
 
 @interface AppDelegate ()
 
@@ -56,13 +57,14 @@
     // Override point for customization after application launch.
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{@"isAcceptedTerm": @NO}];
     
-    if ([PFUser currentUser]) {
+//    if ([PFUser currentUser]) {
         UIStoryboard *mainStoryborad = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         self.window.rootViewController = [mainStoryborad instantiateViewControllerWithIdentifier:@"RootViewController"];
-    }
+//    }
 }
 
 - (void)initParse {
+    [Sample registerSubclass];
     [Message registerSubclass];
     [Room registerSubclass];
     

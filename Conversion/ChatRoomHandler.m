@@ -40,7 +40,7 @@
 }
 
 - (void)chatRoomManager:(ChatRoomManager *)manager didReceiveMessage:(Message *)message {
-    NSString *formatted = [NSString stringWithFormat:@"%@ %@ %@", message.createdAt, message.authorName, message.message];
+    NSString *formatted = [NSString stringWithFormat:@"%@ %@", message.createdAt, message.userName];
     printf("%s\n", formatted.UTF8String);
 }
 @end
