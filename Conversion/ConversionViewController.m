@@ -10,6 +10,7 @@
 @import AVFoundation;
 @import CoreMedia.CMTime;
 @import ParseLiveQuery;
+@import Parse;
 
 #import "ConversionViewController.h"
 #import "AAPLPlayerView.h"
@@ -26,6 +27,9 @@
 @property AVPlayerItem *playerItem;
 
 @property (readonly) AVPlayerLayer *playerLayer;
+@property (nonatomic, strong) PFLiveQueryClient *client;
+@property (nonatomic, strong) PFQuery *query;
+@property (nonatomic, strong) PFLiveQuerySubscription *subscription;
 
 @end
 
@@ -34,6 +38,25 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.client = [[PFLiveQueryClient alloc] init];
+    self.query = [PFQuery queryWithClassName:@"Messages"];
+    [self.query whereKey:@"objectId" notEqualTo:@"asdfas"];
+    self.subscription = [self.client subscribeToQuery:self.query];
+    
+    [self.subscription addSubscribeHandler:^(PFQuery<PFObject *> * _Nonnull query) {
+        NSLog(@"subscribed");
+    }];
+    [self.subscription addCreateHandler:^(PFQuery<PFObject *> * _Nonnull query, PFObject * _Nonnull obj) {
+        NSLog(@"created %@", obj[@"playerName"]);
+        
+    }];
+    [self.subscription addUpdateHandler:^(PFQuery * _Nonnull query, PFObject * _Nonnull obj) {
+        NSLog(@"Update");
+    }];
+    
+    [self.subscription addErrorHandler:^(PFQuery * _Nonnull query, NSError * _Nonnull error) {
+        NSLog(@"Error");
+    }];
 }
 
 // MARK: - View Handling

@@ -37,7 +37,11 @@
   self.client = [self.dataSource liveQueryClientForChatRoomManager:self];
   self.query = [self.dataSource queryForChatRoomManager:self];
 
-  __weak typeof(self) weakSelf = self;
+//  __weak typeof(self) weakSelf = self;
+    
+    [self.subscription addUnsubscribeHandler:^(PFQuery<PFObject *> * _Nonnull query) {
+        NSLog(@"Subscribed");
+    }];
 
 //   self.subscription = [self.client subscribeToQuery:self.query withHandler:^(PFQuery *query, PFObject *message) {
 //    [weakSelf.delegate chatRoomManager:weakSelf didReceiveMessage:(Message *)message];

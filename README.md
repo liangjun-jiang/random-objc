@@ -13,7 +13,7 @@ curl -X POST \
 -H "X-Parse-Client-Key: UA_CLIENT_KEY" \
 -H "Content-Type: application/json" \
 -d '{"score":1337,"playerName":"Sean Plott","cheatMode":false}' \
-http://localhost:1337/parse/classes/GameScore
+http://localhost:1337/parse/classes/Messages
 ```
 
 4. step 4
