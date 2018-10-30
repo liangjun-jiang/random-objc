@@ -58,8 +58,8 @@
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{@"isAcceptedTerm": @NO}];
     
 //    if ([PFUser currentUser]) {
-        UIStoryboard *mainStoryborad = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        self.window.rootViewController = [mainStoryborad instantiateViewControllerWithIdentifier:@"RootViewController"];
+//        UIStoryboard *mainStoryborad = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+//        self.window.rootViewController = [mainStoryborad instantiateViewControllerWithIdentifier:@"RootViewController"];
 //    }
 }
 

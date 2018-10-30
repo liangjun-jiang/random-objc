@@ -11,7 +11,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface Sample : NSObject <PFSubclassing>
+@interface Sample : PFObject <PFSubclassing>
 @property (nullable, nonatomic, strong) PFFile *videoFile;
 @end
 

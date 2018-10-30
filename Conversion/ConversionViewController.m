@@ -79,6 +79,7 @@
         
         Sample *sample = aMessage.videoSample;
         
+        //2018-10-30-04-47-0.mov
         NSArray *dirs = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         NSString *documentsDirectoryPath = [dirs objectAtIndex:0];
         NSString *outputFilePath = [documentsDirectoryPath stringByAppendingPathComponent:[sample.videoFile.name stringByAppendingPathExtension:@"mov"]];
@@ -129,7 +130,14 @@ static int AAPLPlayerViewControllerKVOContext = 0;
     
     self.playerView.playerLayer.player = self.player;
     
-    NSURL *movieURL = [[NSBundle mainBundle] URLForResource:@"ElephantSeals" withExtension:@"mov"];
+    NSURL *movieURL = [[NSBundle mainBundle] URLForResource:@"2018-10-30-04-47-0" withExtension:@"mov"];
+
+    NSArray *dirs = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectoryPath = [dirs objectAtIndex:0];
+    NSString *outputFilePath = [documentsDirectoryPath stringByAppendingPathComponent:[@"2018-10-30-04-47-0" stringByAppendingPathExtension:@"mov"]];
+    
+//    self.asset = [AVURLAsset assetWithURL:[NSURL URLWithString:outputFilePath]];
+    
     self.asset = [AVURLAsset assetWithURL:movieURL];
     
     // Use a weak self variable to avoid a retain cycle in the block.

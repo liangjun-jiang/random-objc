@@ -11,4 +11,7 @@
 @implementation Sample
 @dynamic videoFile;
 
++ (NSString *)parseClassName {
+    return @"Sample";
+}
 @end
