@@ -12,6 +12,8 @@
 @import ParseLiveQuery;
 @import Parse;
 @import SVProgressHUD;
+@import AVKit;
+
 #import "Message.h"
 #import "Sample.h"
 #import "ConversionViewController.h"
@@ -19,13 +21,6 @@
 
 
 @interface ConversionViewController ()<UITextViewDelegate>
-{
-    AVPlayer *_player;
-    AVURLAsset *_asset;
-    id<NSObject> _timeObserverToken;
-    AVPlayerItem *_playerItem;
-}
-
 @property AVPlayerItem *playerItem;
 
 @property (readonly) AVPlayerLayer *playerLayer;
@@ -38,9 +33,7 @@
 @property (nonatomic, weak) IBOutlet UILabel *agentSaysContentLabel;
 @property (nonatomic, weak) IBOutlet UILabel *agentThinksContentLabel;
 @property (nonatomic, weak) IBOutlet UITextView *userSaysTextView;
-
-
-
+@property (nonatomic, strong) AVPlayer *avPlayer;
 
 @end
 
@@ -80,12 +73,12 @@
         Sample *sample = aMessage.videoSample;
         
         //2018-10-30-04-47-0.mov
-        NSArray *dirs = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        NSString *documentsDirectoryPath = [dirs objectAtIndex:0];
-        NSString *outputFilePath = [documentsDirectoryPath stringByAppendingPathComponent:[sample.videoFile.name stringByAppendingPathExtension:@"mov"]];
+        NSArray *paths = [[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];
+        NSURL *documentsURL = [paths lastObject];
+        NSURL *outputFileURL = [documentsURL URLByAppendingPathComponent:sample.videoFile.name];
         
-        if ([[NSFileManager defaultManager] fileExistsAtPath:outputFilePath]) {
-            self.asset = [AVURLAsset assetWithURL:[NSURL fileURLWithPath:outputFilePath]];
+        if ([[NSFileManager defaultManager] fileExistsAtPath:[outputFileURL absoluteString]]) {
+            [self playVideo:outputFileURL];
         } else {
             PFFile *videoFile = sample.videoFile;
             [videoFile getDataInBackgroundWithBlock:^(NSData * _Nullable data, NSError * _Nullable error) {
@@ -93,10 +86,10 @@
                     [SVProgressHUD showErrorWithStatus:[error localizedDescription]];
                 } else {
                     NSError *error = nil;
-                    [data writeToFile:outputFilePath options:NSDataWritingAtomic error:&error];
+                    [data writeToFile:[outputFileURL absoluteString] options:NSDataWritingAtomic error:&error];
                     NSLog(@"Write returned error: %@", [error localizedDescription]);
                     if (error == nil) {
-                        self.asset = [AVURLAsset assetWithURL:[NSURL fileURLWithPath:outputFilePath]];
+                       [self playVideo:outputFileURL];
                     }
                 }
             }];
@@ -106,267 +99,25 @@
 }
 
 
-// MARK: - View Handling
 
-/*
- KVO context used to differentiate KVO callbacks for this class versus other
- classes in its class hierarchy.
- */
-static int AAPLPlayerViewControllerKVOContext = 0;
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
+#pragma mark - Play video
+-(void)playVideo:(NSURL*) url {
+//    NSURL *aUrl = [[NSURL alloc] initWithString:@"https://s3-eu-west-1.amazonaws.com/alf-proeysen/Bakvendtland-MASTER.mp4"];
+//
+    NSLog(@"played file :%@", url.absoluteString);
+    // create a player view controller
+    self.avPlayer = [AVPlayer playerWithURL:url];
+    AVPlayerViewController *controller = [[AVPlayerViewController alloc] init];
     
-    /*
-     Update the UI when these player properties change.
-     
-     Use the context parameter to distinguish KVO for our particular observers and not
-     those destined for a subclass that also happens to be observing these properties.
-     */
-    [self addObserver:self forKeyPath:@"asset" options:NSKeyValueObservingOptionNew context:&AAPLPlayerViewControllerKVOContext];
-    [self addObserver:self forKeyPath:@"player.currentItem.duration" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionInitial context:&AAPLPlayerViewControllerKVOContext];
-    [self addObserver:self forKeyPath:@"player.rate" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionInitial context:&AAPLPlayerViewControllerKVOContext];
-    [self addObserver:self forKeyPath:@"player.currentItem.status" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionInitial context:&AAPLPlayerViewControllerKVOContext];
+    [self addChildViewController:controller];
+    [self.view addSubview:controller.view];
     
-    self.playerView.playerLayer.player = self.player;
-    
-    NSURL *movieURL = [[NSBundle mainBundle] URLForResource:@"2018-10-30-04-47-0" withExtension:@"mov"];
-
-    NSArray *dirs = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectoryPath = [dirs objectAtIndex:0];
-    NSString *outputFilePath = [documentsDirectoryPath stringByAppendingPathComponent:[@"2018-10-30-04-47-0" stringByAppendingPathExtension:@"mov"]];
-    
-//    self.asset = [AVURLAsset assetWithURL:[NSURL URLWithString:outputFilePath]];
-    
-    self.asset = [AVURLAsset assetWithURL:movieURL];
-    
-    // Use a weak self variable to avoid a retain cycle in the block.
-    ConversionViewController __weak *weakSelf = self;
-    _timeObserverToken = [self.player addPeriodicTimeObserverForInterval:CMTimeMake(1, 1) queue:dispatch_get_main_queue() usingBlock:
-                          ^(CMTime time) {
-//                              weakSelf.timeSlider.value = CMTimeGetSeconds(time);
-                          }];
+    controller.view.frame = CGRectMake(124.5,75,126,163);
+    controller.player = self.avPlayer;
+//    controller.showsPlaybackControls = YES;
+    [self.avPlayer pause];
+    [self.avPlayer play];
 }
-
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
-    
-    if (_timeObserverToken) {
-        [self.player removeTimeObserver:_timeObserverToken];
-        _timeObserverToken = nil;
-    }
-    
-    [self.player pause];
-    
-    [self removeObserver:self forKeyPath:@"asset" context:&AAPLPlayerViewControllerKVOContext];
-    [self removeObserver:self forKeyPath:@"player.currentItem.duration" context:&AAPLPlayerViewControllerKVOContext];
-    [self removeObserver:self forKeyPath:@"player.rate" context:&AAPLPlayerViewControllerKVOContext];
-    [self removeObserver:self forKeyPath:@"player.currentItem.status" context:&AAPLPlayerViewControllerKVOContext];
-}
-
-// MARK: - Properties
-
-// Will attempt load and test these asset keys before playing
-+ (NSArray *)assetKeysRequiredToPlay {
-    return @[ @"playable", @"hasProtectedContent" ];
-}
-
-- (AVPlayer *)player {
-    if (!_player)
-        _player = [[AVPlayer alloc] init];
-    return _player;
-}
-
-- (CMTime)currentTime {
-    return self.player.currentTime;
-}
-- (void)setCurrentTime:(CMTime)newCurrentTime {
-    [self.player seekToTime:newCurrentTime toleranceBefore:kCMTimeZero toleranceAfter:kCMTimeZero];
-}
-
-- (CMTime)duration {
-    return self.player.currentItem ? self.player.currentItem.duration : kCMTimeZero;
-}
-
-- (float)rate {
-    return self.player.rate;
-}
-- (void)setRate:(float)newRate {
-    self.player.rate = newRate;
-}
-
-- (AVPlayerLayer *)playerLayer {
-    return self.playerView.playerLayer;
-}
-
-- (AVPlayerItem *)playerItem {
-    return _playerItem;
-}
-
-- (void)setPlayerItem:(AVPlayerItem *)newPlayerItem {
-    if (_playerItem != newPlayerItem) {
-        
-        _playerItem = newPlayerItem;
-        
-        // If needed, configure player item here before associating it with a player
-        // (example: adding outputs, setting text style rules, selecting media options)
-        [self.player replaceCurrentItemWithPlayerItem:_playerItem];
-    }
-}
-
-// MARK: - Asset Loading
-
-- (void)asynchronouslyLoadURLAsset:(AVURLAsset *)newAsset {
-    
-    /*
-     Using AVAsset now runs the risk of blocking the current thread
-     (the main UI thread) whilst I/O happens to populate the
-     properties. It's prudent to defer our work until the properties
-     we need have been loaded.
-     */
-    [newAsset loadValuesAsynchronouslyForKeys:ConversionViewController.assetKeysRequiredToPlay completionHandler:^{
-        
-        /*
-         The asset invokes its completion handler on an arbitrary queue.
-         To avoid multiple threads using our internal state at the same time
-         we'll elect to use the main thread at all times, let's dispatch
-         our handler to the main queue.
-         */
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-            if (newAsset != self.asset) {
-                /*
-                 self.asset has already changed! No point continuing because
-                 another newAsset will come along in a moment.
-                 */
-                return;
-            }
-            
-            /*
-             Test whether the values of each of the keys we need have been
-             successfully loaded.
-             */
-            for (NSString *key in self.class.assetKeysRequiredToPlay) {
-                NSError *error = nil;
-                if ([newAsset statusOfValueForKey:key error:&error] == AVKeyValueStatusFailed) {
-                    
-                    NSString *message = [NSString localizedStringWithFormat:NSLocalizedString(@"error.asset_key_%@_failed.description", @"Can't use this AVAsset because one of it's keys failed to load"), key];
-                    
-                    [self handleErrorWithMessage:message error:error];
-                    
-                    return;
-                }
-            }
-            
-            // We can't play this asset.
-            if (!newAsset.playable || newAsset.hasProtectedContent) {
-                NSString *message = NSLocalizedString(@"error.asset_not_playable.description", @"Can't use this AVAsset because it isn't playable or has protected content");
-                
-                [self handleErrorWithMessage:message error:nil];
-                
-                return;
-            }
-            
-            /*
-             We can play this asset. Create a new AVPlayerItem and make it
-             our player's current item.
-             */
-            self.playerItem = [AVPlayerItem playerItemWithAsset:newAsset];
-        });
-    }];
-}
-
-// MARK: - KV Observation
-
-// Update our UI when player or player.currentItem changes
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    
-    if (context != &AAPLPlayerViewControllerKVOContext) {
-        // KVO isn't for us.
-        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
-        return;
-    }
-    
-    if ([keyPath isEqualToString:@"asset"]) {
-        if (self.asset) {
-            [self asynchronouslyLoadURLAsset:self.asset];
-        }
-    }
-    else if ([keyPath isEqualToString:@"player.currentItem.duration"]) {
-        
-        // Update timeSlider and enable/disable controls when duration > 0.0
-        
-        // Handle NSNull value for NSKeyValueChangeNewKey, i.e. when player.currentItem is nil
-        NSValue *newDurationAsValue = change[NSKeyValueChangeNewKey];
-        CMTime newDuration = [newDurationAsValue isKindOfClass:[NSValue class]] ? newDurationAsValue.CMTimeValue : kCMTimeZero;
-        BOOL hasValidDuration = CMTIME_IS_NUMERIC(newDuration) && newDuration.value != 0;
-        double newDurationSeconds = hasValidDuration ? CMTimeGetSeconds(newDuration) : 0.0;
-        
-//        self.timeSlider.maximumValue = newDurationSeconds;
-//        self.timeSlider.value = hasValidDuration ? CMTimeGetSeconds(self.currentTime) : 0.0;
-//        self.rewindButton.enabled = hasValidDuration;
-        self.playPauseButton.enabled = hasValidDuration;
-//        self.fastForwardButton.enabled = hasValidDuration;
-//        self.timeSlider.enabled = hasValidDuration;
-//        self.startTimeLabel.enabled = hasValidDuration;
-//        self.durationLabel.enabled = hasValidDuration;
-//        int wholeMinutes = (int)trunc(newDurationSeconds / 60);
-//        self.durationLabel.text = [NSString stringWithFormat:@"%d:%02d", wholeMinutes, (int)trunc(newDurationSeconds) - wholeMinutes * 60];
-        
-    }
-    else if ([keyPath isEqualToString:@"player.rate"]) {
-        // Update playPauseButton image
-        
-        double newRate = [change[NSKeyValueChangeNewKey] doubleValue];
-        UIImage *buttonImage = (newRate == 1.0) ? [UIImage imageNamed:@"PauseButton"] : [UIImage imageNamed:@"PlayButton"];
-        [self.playPauseButton setImage:buttonImage forState:UIControlStateNormal];
-        
-    }
-    else if ([keyPath isEqualToString:@"player.currentItem.status"]) {
-        // Display an error if status becomes Failed
-        
-        // Handle NSNull value for NSKeyValueChangeNewKey, i.e. when player.currentItem is nil
-        NSNumber *newStatusAsNumber = change[NSKeyValueChangeNewKey];
-        AVPlayerItemStatus newStatus = [newStatusAsNumber isKindOfClass:[NSNumber class]] ? newStatusAsNumber.integerValue : AVPlayerItemStatusUnknown;
-        
-        if (newStatus == AVPlayerItemStatusFailed) {
-            [self handleErrorWithMessage:self.player.currentItem.error.localizedDescription error:self.player.currentItem.error];
-        }
-        
-    } else {
-        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
-    }
-}
-
-// Trigger KVO for anyone observing our properties affected by player and player.currentItem
-+ (NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key {
-    if ([key isEqualToString:@"duration"]) {
-        return [NSSet setWithArray:@[ @"player.currentItem.duration" ]];
-    } else if ([key isEqualToString:@"currentTime"]) {
-        return [NSSet setWithArray:@[ @"player.currentItem.currentTime" ]];
-    } else if ([key isEqualToString:@"rate"]) {
-        return [NSSet setWithArray:@[ @"player.rate" ]];
-    } else {
-        return [super keyPathsForValuesAffectingValueForKey:key];
-    }
-}
-
-// MARK: - Error Handling
-
-- (void)handleErrorWithMessage:(NSString *)message error:(NSError *)error {
-    NSLog(@"Error occured with message: %@, error: %@.", message, error);
-    
-    NSString *alertTitle = NSLocalizedString(@"alert.error.title", @"Alert title for errors");
-    NSString *defaultAlertMesssage = NSLocalizedString(@"error.default.description", @"Default error message when no NSError provided");
-    UIAlertController *controller = [UIAlertController alertControllerWithTitle:alertTitle message:message ?: defaultAlertMesssage preferredStyle:UIAlertControllerStyleAlert];
-    
-    NSString *alertActionTitle = NSLocalizedString(@"alert.error.actions.OK", @"OK on error alert");
-    UIAlertAction *action = [UIAlertAction actionWithTitle:alertActionTitle style:UIAlertActionStyleDefault handler:nil];
-    [controller addAction:action];
-    
-    [self presentViewController:controller animated:YES completion:nil];
-}
-
 
 
 #pragma mark - IBAction
