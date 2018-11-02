@@ -81,10 +81,12 @@
 }
 
 - (IBAction)loginAsUser:(id)sender {
-    
-    
-    UINavigationController *navController = [self.storyboard instantiateViewControllerWithIdentifier:@"ConversionNavController"];
-    [self.navigationController presentViewController:navController animated:YES completion:nil];
+    if ([PFUser currentUser]) {
+        UINavigationController *navController = [self.storyboard instantiateViewControllerWithIdentifier:@"ConversionNavController"];
+        [self.navigationController presentViewController:navController animated:YES completion:nil];
+    } else {
+         [SVProgressHUD showErrorWithStatus: @"Register or Log In first"];
+    }
 }
 
 

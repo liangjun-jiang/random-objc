@@ -80,7 +80,7 @@
         
         // Enable storing and querying data from Local Datastore. Remove this line if you don't want to
         // use Local Datastore features or want to use cachePolicy.
-        configuration.localDatastoreEnabled = YES;
+        configuration.localDatastoreEnabled = NO;
     }]];
     
 //    [PFUser enableAutomaticUser];

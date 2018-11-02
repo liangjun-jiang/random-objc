@@ -14,6 +14,7 @@
 		532EC45F21884DC1009C58E3 /* Dummy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 532EC45E21884DC0009C58E3 /* Dummy.swift */; };
 		532EC46621886210009C58E3 /* Sample.m in Sources */ = {isa = PBXBuildFile; fileRef = 532EC46521886210009C58E3 /* Sample.m */; };
 		532EC46821886BBF009C58E3 /* 2018-10-30-04-47-0.mov in Resources */ = {isa = PBXBuildFile; fileRef = 532EC46721886BBF009C58E3 /* 2018-10-30-04-47-0.mov */; };
+		5362D27F218C41B40087746F /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5362D27E218C41B30087746F /* SafariServices.framework */; };
 		5384B27921766D3A0077B3AE /* AVCamPreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5384B27821766D3A0077B3AE /* AVCamPreviewView.m */; };
 		5384B27C21766DFE0077B3AE /* AVCamCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5384B27B21766DFE0077B3AE /* AVCamCameraViewController.m */; };
 		5384B27F21766EB30077B3AE /* AVCamPhotoCaptureDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5384B27E21766EB30077B3AE /* AVCamPhotoCaptureDelegate.m */; };
@@ -47,6 +48,7 @@
 		532EC46421886210009C58E3 /* Sample.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Sample.h; sourceTree = "<group>"; };
 		532EC46521886210009C58E3 /* Sample.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Sample.m; sourceTree = "<group>"; };
 		532EC46721886BBF009C58E3 /* 2018-10-30-04-47-0.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = "2018-10-30-04-47-0.mov"; sourceTree = "<group>"; };
+		5362D27E218C41B30087746F /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 		5384B27721766D3A0077B3AE /* AVCamPreviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVCamPreviewView.h; sourceTree = "<group>"; };
 		5384B27821766D3A0077B3AE /* AVCamPreviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AVCamPreviewView.m; sourceTree = "<group>"; };
 		5384B27A21766DFD0077B3AE /* AVCamCameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVCamCameraViewController.h; sourceTree = "<group>"; };
@@ -86,6 +88,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5362D27F218C41B40087746F /* SafariServices.framework in Frameworks */,
 				9A1C45E25AC7372B8E176ACC /* libPods-Conversion.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -179,6 +182,7 @@
 		FCBC7D04C138FE3D8EA3DF3C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5362D27E218C41B30087746F /* SafariServices.framework */,
 				8746B7B7C8D30D76E4B9A270 /* libPods-Conversion.a */,
 			);
 			name = Frameworks;
