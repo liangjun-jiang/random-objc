@@ -47,15 +47,26 @@
     [self.query whereKey:@"objectId" notEqualTo:@"asdfas"];
     self.subscription = [self.client subscribeToQuery:self.query];
     
+    __weak typeof(self) weakSelf = self;
     [self.subscription addSubscribeHandler:^(PFQuery<Message *> * _Nonnull query) {
         NSLog(@"subscribed");
     }];
     [self.subscription addCreateHandler:^(PFQuery<Message *> * _Nonnull query, PFObject * _Nonnull obj) {
-        NSLog(@"created %@", obj[@"playerName"]);
-        
+        if ([obj isKindOfClass:[Message class]]) {
+            Message *lMessage = (Message*)obj;
+            dispatch_async( dispatch_get_main_queue(), ^{
+                [weakSelf updateUI:lMessage];
+            });
+        }
     }];
     [self.subscription addUpdateHandler:^(PFQuery * _Nonnull query, PFObject * _Nonnull obj) {
         NSLog(@"Update");
+        if ([obj isKindOfClass:[Message class]]) {
+            Message *lMessage = (Message*)obj;
+            dispatch_async( dispatch_get_main_queue(), ^{
+                [weakSelf updateUI:lMessage];
+            });
+        }
     }];
     
     [self.subscription addErrorHandler:^(PFQuery * _Nonnull query, NSError * _Nonnull error) {
@@ -64,15 +75,14 @@
     }];
 }
 
--(void)updateUI:(PFObject *)message {
-    if ([message isKindOfClass:[message class]]) {
-        Message *aMessage = (Message *)message;
-        self.agentSaysContentLabel.text = aMessage.agentSays;
-        self.agentThinksContentLabel.text = aMessage.agentThinks;
-        
-        Sample *sample = aMessage.videoSample;
-        
-        //2018-10-30-04-47-0.mov
+-(void)updateUI:(Message *)aMessage {
+    self.agentSaysContentLabel.text = aMessage.agentSays;
+    self.agentThinksContentLabel.text = aMessage.agentThinks;
+    
+    Sample *sample = aMessage.videoSample;
+    
+    if (sample.videoFile && sample.videoFile.name) {
+        //5e55cba266b5d183d9c7f05d141e2ffb_2018-11-02-01-38-0.mov -> 2018-10-30-04-47-0.mov
         NSArray *paths = [[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];
         NSURL *documentsURL = [paths lastObject];
         NSURL *outputFileURL = [documentsURL URLByAppendingPathComponent:sample.videoFile.name];
@@ -86,19 +96,17 @@
                     [SVProgressHUD showErrorWithStatus:[error localizedDescription]];
                 } else {
                     NSError *error = nil;
-                    [data writeToFile:[outputFileURL absoluteString] options:NSDataWritingAtomic error:&error];
-                    NSLog(@"Write returned error: %@", [error localizedDescription]);
+                    [data writeToURL:outputFileURL options:NSDataWritingAtomic error:&error];
                     if (error == nil) {
-                       [self playVideo:outputFileURL];
+                        [self playVideo:outputFileURL];
+                    } else {
+                        NSLog(@"Write returned error: %@", [error localizedDescription]);
                     }
                 }
             }];
-           
         }
     }
 }
-
-
 
 #pragma mark - Play video
 -(void)playVideo:(NSURL*) url {
