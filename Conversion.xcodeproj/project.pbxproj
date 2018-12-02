@@ -38,7 +38,7 @@
 		5390844621793830000947E4 /* AAPLPlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAPLPlayerView.h; sourceTree = "<group>"; };
 		5390844721793830000947E4 /* AAPLPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAPLPlayerView.m; sourceTree = "<group>"; };
 		5390844A21793B42000947E4 /* ElephantSeals.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = ElephantSeals.mov; sourceTree = "<group>"; };
-		53BA80A721756BEA0078DC5E /* Conversion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Conversion.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		53BA80A721756BEA0078DC5E /* MyDigitalCopy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyDigitalCopy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		53BA80AA21756BEA0078DC5E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		53BA80AB21756BEA0078DC5E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		53BA80AD21756BEA0078DC5E /* RootViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
@@ -103,7 +103,7 @@
 		53BA80A821756BEA0078DC5E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				53BA80A721756BEA0078DC5E /* Conversion.app */,
+				53BA80A721756BEA0078DC5E /* MyDigitalCopy.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -170,7 +170,7 @@
 			);
 			name = Conversion;
 			productName = Conversion;
-			productReference = 53BA80A721756BEA0078DC5E /* Conversion.app */;
+			productReference = 53BA80A721756BEA0078DC5E /* MyDigitalCopy.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -441,7 +441,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = edu.ua.drwu.Conversion;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = MyDigitalCopy;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -461,7 +461,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = edu.ua.drwu.Conversion;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = MyDigitalCopy;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

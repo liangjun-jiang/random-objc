@@ -208,6 +208,12 @@ typedef NS_ENUM( NSInteger, AVCamDepthDataDeliveryMode ) {
     [self initData];
 }
 
+-(IBAction)onSignOff:(id)sender {
+    if([PFUser currentUser]) {
+        [PFUser logOut];
+    }
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
