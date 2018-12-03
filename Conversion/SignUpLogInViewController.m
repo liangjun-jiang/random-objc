@@ -21,8 +21,6 @@
 @property (nonatomic, weak) IBOutlet UITextField *loginEmailTextField;
 
 @property (nonatomic, assign) CGFloat visibleKeyboardHeight;
-
-@property (nonatomic, assign) bool isUser;
 @end
 
 @implementation SignUpLogInViewController
@@ -39,7 +37,7 @@
     self.isUser = YES;
     [self onSignUp:nil];
 }
-    
+
 
 -(IBAction)onSignUp:(id)sender {
     NSString *userName = [self.signUpUserNameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
@@ -57,11 +55,7 @@
     [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
         if (!error) {
             [self saveLoggedInOrSignedUp];
-            if (self.isUser) {
-                [self presentUserInterface];
-            } else {
-                [self presentTermsViewController];
-            }
+            [self presentTermsViewController];
         } else {
              [SVProgressHUD showErrorWithStatus: [error localizedDescription]];
         }
@@ -69,16 +63,14 @@
 }
 
 -(IBAction)onLogin:(id)sender {
+    
     NSString *userName = [self.loginUserNameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     NSString *password = [self.loginPasswordTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     NSString *email = [self.loginEmailTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     [PFUser logInWithUsernameInBackground:userName password:password block:^(PFUser *user, NSError *error){
         if (!error) {
             [self saveLoggedInOrSignedUp];
-            if (user[@"isUser"]) {
-                [self presentUserInterface];
-            } else
-                [self presentTermsViewController];
+            [self presentTermsViewController];
         } else {
             [SVProgressHUD showErrorWithStatus: [error localizedDescription]];
         }
@@ -86,13 +78,12 @@
 }
 
 - (IBAction)loginAsUser:(id)sender {
-    self.isUser = true;
-    [self onLogin:nil];
-}
-
--(void)presentUserInterface {
-    UINavigationController *navController = [self.storyboard instantiateViewControllerWithIdentifier:@"ConversionNavController"];
-    [self.navigationController presentViewController:navController animated:YES completion:nil];
+    if ([PFUser currentUser]) {
+        UINavigationController *navController = [self.storyboard instantiateViewControllerWithIdentifier:@"ConversionNavController"];
+        [self.navigationController presentViewController:navController animated:YES completion:nil];
+    } else {
+         [SVProgressHUD showErrorWithStatus: @"Register or Log In first"];
+    }
 }
 
 
@@ -144,5 +135,103 @@
      }
 }
 
+
+#pragma mark Keyboard
+
+//- (void)_dismissKeyboard {
+//    [self.view endEditing:YES];
+//}
+//
+//- (void)_registerForKeyboardNotifications {
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(_keyboardWillShow:)
+//                                                 name:UIKeyboardWillShowNotification
+//                                               object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(_keyboardWillHide:)
+//                                                 name:UIKeyboardWillHideNotification object:nil];
+//}
+//
+//- (void)_keyboardWillShow:(NSNotification *)notification {
+//    NSDictionary *userInfo = [notification userInfo];
+//    CGRect endFrame = [userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+//    CGFloat duration = [userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+//    UIViewAnimationCurve curve = [userInfo[UIKeyboardAnimationCurveUserInfoKey] integerValue];
+//
+//    CGRect keyboardFrame = [self.view convertRect:endFrame fromView:self.view.window];
+//    CGFloat visibleKeyboardHeight = CGRectGetMaxY(self.view.bounds) - CGRectGetMinY(keyboardFrame);
+//
+//    [self setVisibleKeyboardHeight:visibleKeyboardHeight
+//                 animationDuration:duration
+//                  animationOptions:curve << 16];
+//}
+//
+//- (void)_keyboardWillHide:(NSNotification *)notification {
+//    NSDictionary *userInfo = [notification userInfo];
+//    CGFloat duration = [userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+//    UIViewAnimationCurve curve = [userInfo[UIKeyboardAnimationCurveUserInfoKey] integerValue];
+//    [self setVisibleKeyboardHeight:0.0
+//                 animationDuration:duration
+//                  animationOptions:curve << 16];
+//}
+//
+//- (void)setVisibleKeyboardHeight:(CGFloat)visibleKeyboardHeight
+//               animationDuration:(NSTimeInterval)animationDuration
+//                animationOptions:(UIViewAnimationOptions)animationOptions {
+//
+//    dispatch_block_t animationsBlock = ^{
+//        self.visibleKeyboardHeight = visibleKeyboardHeight;
+//    };
+//
+//    if (animationDuration == 0.0) {
+//        animationsBlock();
+//    } else {
+//        [UIView animateWithDuration:animationDuration
+//                              delay:0.0
+//                            options:animationOptions | UIViewAnimationOptionBeginFromCurrentState
+//                         animations:animationsBlock
+//                         completion:nil];
+//    }
+//}
+//
+//- (void)setVisibleKeyboardHeight:(CGFloat)visibleKeyboardHeight {
+//    if (self.visibleKeyboardHeight != visibleKeyboardHeight) {
+//        _visibleKeyboardHeight = visibleKeyboardHeight;
+//        [self _updateSignUpViewContentOffsetAnimated:NO];
+//    }
+//}
+//
+//- (void)_updateSignUpViewContentOffsetAnimated:(BOOL)animated {
+//    CGPoint contentOffset = CGPointZero;
+//    if (self.visibleKeyboardHeight > 0.0f) {
+//        // Scroll the view to keep fields visible
+//        CGFloat offsetForScrollingTextFieldToTop = CGRectGetMinY([self _currentFirstResponder].frame);
+//
+//        UIView *lowestView;
+//        if (_signUpView.signUpButton) {
+//            lowestView = _signUpView.signUpButton;
+//        } else if (_signUpView.additionalField) {
+//            lowestView = _signUpView.additionalField;
+//        } else if (_signUpView.emailField) {
+//            lowestView = _signUpView.emailField;
+//        } else {
+//            lowestView = _signUpView.passwordField;
+//        }
+//
+//        CGFloat offsetForScrollingLowestViewToBottom = 0.0f;
+//        offsetForScrollingLowestViewToBottom += self.visibleKeyboardHeight;
+//        offsetForScrollingLowestViewToBottom += CGRectGetMaxY(lowestView.frame);
+//        offsetForScrollingLowestViewToBottom -= CGRectGetHeight(_signUpView.bounds);
+//
+//        if (offsetForScrollingLowestViewToBottom < 0) {
+//            return; // No scrolling required
+//        }
+//
+//        contentOffset = CGPointMake(0.0f, MIN(offsetForScrollingTextFieldToTop,
+//                                              offsetForScrollingLowestViewToBottom));
+//    }
+//
+//    [_signUpView setContentOffset:contentOffset animated:animated];
+//}
 
 @end

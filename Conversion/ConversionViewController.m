@@ -16,14 +16,13 @@
 @import QuartzCore;
 @import SafariServices;
 
-
 #import "Message.h"
 #import "Sample.h"
 #import "ConversionViewController.h"
 #import "AAPLPlayerView.h"
 
 
-@interface ConversionViewController ()<UITextViewDelegate,SFSafariViewControllerDelegate>
+@interface ConversionViewController ()<UITextViewDelegate, SFSafariViewControllerDelegate>
 @property AVPlayerItem *playerItem;
 
 @property (readonly) AVPlayerLayer *playerLayer;
@@ -38,6 +37,9 @@
 @property (nonatomic, weak) IBOutlet UITextView *userSaysTextView;
 @property (nonatomic, strong) AVPlayer *avPlayer;
 
+@property (nonatomic, strong) Message *currentAgentMessage;
+@property (nonatomic, strong) AVSpeechSynthesizer *synthesizer;
+
 @end
 
 @implementation ConversionViewController
@@ -50,7 +52,6 @@
     [self.query includeKey:@"videoSample.videoFile"];
     if ([PFUser currentUser])
         [self.query whereKey:@"user" notEqualTo:[PFUser currentUser]];
-
     self.subscription = [self.client subscribeToQuery:self.query];
     
     __weak typeof(self) weakSelf = self;
@@ -60,6 +61,7 @@
     [self.subscription addCreateHandler:^(PFQuery<Message *> * _Nonnull query, PFObject * _Nonnull obj) {
         if ([obj isKindOfClass:[Message class]]) {
             Message *lMessage = (Message*)obj;
+            weakSelf.currentAgentMessage = lMessage; // really for tracking user's content
             dispatch_async( dispatch_get_main_queue(), ^{
                 [weakSelf updateUI:lMessage];
             });
@@ -69,6 +71,7 @@
         NSLog(@"Update");
         if ([obj isKindOfClass:[Message class]]) {
             Message *lMessage = (Message*)obj;
+            weakSelf.currentAgentMessage = lMessage;
             dispatch_async( dispatch_get_main_queue(), ^{
                 [weakSelf updateUI:lMessage];
             });
@@ -83,6 +86,16 @@
 
 -(void)updateUI:(Message *)aMessage {
     self.agentSaysContentLabel.text = aMessage.agentSays;
+    //speak it
+    if (aMessage.agentSays && [aMessage.agentSays length] > 0) {
+        if (self.synthesizer == nil)
+        self.synthesizer = [[AVSpeechSynthesizer alloc] init];
+        AVSpeechUtterance *speechutt = [AVSpeechUtterance speechUtteranceWithString:aMessage.agentSays];
+        [speechutt setRate:0.3f];
+        speechutt.voice = [AVSpeechSynthesisVoice voiceWithLanguage:@"en-us"];
+        [self.synthesizer speakUtterance:speechutt];
+    }
+    
     self.agentThinksContentLabel.text = aMessage.agentThinks;
     
     Sample *sample = aMessage.videoSample;
@@ -116,9 +129,6 @@
 
 #pragma mark - Play video
 -(void)playVideo:(NSURL*) url {
-//    NSURL *aUrl = [[NSURL alloc] initWithString:@"https://s3-eu-west-1.amazonaws.com/alf-proeysen/Bakvendtland-MASTER.mp4"];
-//
-    NSLog(@"played file :%@", url.absoluteString);
     // create a player view controller
     self.avPlayer = [AVPlayer playerWithURL:url];
     AVPlayerViewController *controller = [[AVPlayerViewController alloc] init];
@@ -143,7 +153,6 @@
 }
 
 - (IBAction)onStop:(id)sender {
-    
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Quit or Continue" message:@"Are you sure?" preferredStyle:UIAlertControllerStyleAlert];
     alertController.view.tag = 3;
     UIAlertAction* quitAction = [UIAlertAction actionWithTitle:@"Quit" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action)
@@ -190,7 +199,10 @@
 }
 
 - (IBAction)onSubscribe:(id)sender {
-    [SVProgressHUD showInfoWithStatus:@"not ready yet"];
+    SFSafariViewController *svc = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:@"https://news.google.com"]];
+    svc.delegate = self;
+    [self presentViewController:svc animated:YES completion:nil];
+    
 }
 
 - (IBAction)onSend:(id)sender {
@@ -198,6 +210,9 @@
     message.agentThinks = self.agentThinksContentLabel.text;
     message.agentSays = self.agentSaysContentLabel.text;
     message.userSays = [self.userSaysTextView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+//    if (self.currentAgentMessage && self.currentAgentMessage.videoSample)
+//        message.videoSample = self.currentAgentMessage.videoSample;
+    message.user = [PFUser currentUser];
     [message saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
         if (!error) {
             NSLog(@"message sent");
@@ -239,4 +254,11 @@
     [txtView resignFirstResponder];
     return NO;
 }
+
+
+#pragma mark - safari service
+- (void)safariViewControllerDidFinish:(SFSafariViewController *)controller {
+    [self dismissViewControllerAnimated:true completion:nil];
+}
+
 @end
