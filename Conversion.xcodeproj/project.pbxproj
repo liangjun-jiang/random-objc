@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		07502F373FB896763F7D5C26 /* Pods_Conversion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5352ED2C3D8D718BD9274C4B /* Pods_Conversion.framework */; };
+		38D650689D6C1E681C1528E7 /* Pods_Conversion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E0EEE7C2EA937F41018E263 /* Pods_Conversion.framework */; };
 		532EC45F21884DC1009C58E3 /* Dummy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 532EC45E21884DC0009C58E3 /* Dummy.swift */; };
 		532EC46621886210009C58E3 /* Sample.m in Sources */ = {isa = PBXBuildFile; fileRef = 532EC46521886210009C58E3 /* Sample.m */; };
 		532EC46821886BBF009C58E3 /* 2018-10-30-04-47-0.mov in Resources */ = {isa = PBXBuildFile; fileRef = 532EC46721886BBF009C58E3 /* 2018-10-30-04-47-0.mov */; };
@@ -32,6 +32,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2E0EEE7C2EA937F41018E263 /* Pods_Conversion.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Conversion.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5303699E2186BD4500ADEDDF /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Message.m; sourceTree = "<group>"; };
 		5303699F2186BD4500ADEDDF /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Message.h; sourceTree = "<group>"; };
 		532EC45D21884DC0009C58E3 /* Conversion-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Conversion-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -79,7 +80,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5362D27F218C41B40087746F /* SafariServices.framework in Frameworks */,
-				9A1C45E25AC7372B8E176ACC /* libPods-Conversion.a in Frameworks */,
+				38D650689D6C1E681C1528E7 /* Pods_Conversion.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -167,7 +168,7 @@
 			isa = PBXGroup;
 			children = (
 				5362D27E218C41B30087746F /* SafariServices.framework */,
-				8746B7B7C8D30D76E4B9A270 /* libPods-Conversion.a */,
+				2E0EEE7C2EA937F41018E263 /* Pods_Conversion.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
