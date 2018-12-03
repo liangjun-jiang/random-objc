@@ -13,6 +13,9 @@
 @import Parse;
 @import SVProgressHUD;
 @import AVKit;
+@import QuartzCore;
+@import SafariServices;
+
 
 #import "Message.h"
 #import "Sample.h"
@@ -20,7 +23,7 @@
 #import "AAPLPlayerView.h"
 
 
-@interface ConversionViewController ()<UITextViewDelegate>
+@interface ConversionViewController ()<UITextViewDelegate,SFSafariViewControllerDelegate>
 @property AVPlayerItem *playerItem;
 
 @property (readonly) AVPlayerLayer *playerLayer;
@@ -44,7 +47,10 @@
     // Do any additional setup after loading the view.
     self.client = [[PFLiveQueryClient alloc] init];
     self.query = [PFQuery queryWithClassName:@"Message"];
-    [self.query whereKey:@"objectId" notEqualTo:@"asdfas"];
+    [self.query includeKey:@"videoSample.videoFile"];
+    if ([PFUser currentUser])
+        [self.query whereKey:@"user" notEqualTo:[PFUser currentUser]];
+
     self.subscription = [self.client subscribeToQuery:self.query];
     
     __weak typeof(self) weakSelf = self;
