@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		530369A32186BD4500ADEDDF /* Room.m in Sources */ = {isa = PBXBuildFile; fileRef = 5303699D2186BD4400ADEDDF /* Room.m */; };
 		532EC45F21884DC1009C58E3 /* Dummy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 532EC45E21884DC0009C58E3 /* Dummy.swift */; };
 		532EC46621886210009C58E3 /* Sample.m in Sources */ = {isa = PBXBuildFile; fileRef = 532EC46521886210009C58E3 /* Sample.m */; };
 		532EC46821886BBF009C58E3 /* 2018-10-30-04-47-0.mov in Resources */ = {isa = PBXBuildFile; fileRef = 532EC46721886BBF009C58E3 /* 2018-10-30-04-47-0.mov */; };
@@ -27,18 +26,13 @@
 		53BA80C021756BEC0078DC5E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 53BA80BF21756BEC0078DC5E /* main.m */; };
 		53BA80C821756F660078DC5E /* SignUpLogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 53BA80C721756F660078DC5E /* SignUpLogInViewController.m */; };
 		53BA80CB21756F7B0078DC5E /* TermsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 53BA80CA21756F7B0078DC5E /* TermsViewController.m */; };
+		7DDE000D21B4E88900820738 /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 5303699E2186BD4500ADEDDF /* Message.m */; };
 		9A1C45E25AC7372B8E176ACC /* libPods-Conversion.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8746B7B7C8D30D76E4B9A270 /* libPods-Conversion.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		5303699D2186BD4400ADEDDF /* Room.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Room.m; sourceTree = "<group>"; };
 		5303699E2186BD4500ADEDDF /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Message.m; sourceTree = "<group>"; };
 		5303699F2186BD4500ADEDDF /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Message.h; sourceTree = "<group>"; };
-		530369A02186BD4500ADEDDF /* ChatRoomManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatRoomManager.m; sourceTree = "<group>"; };
-		530369A12186BD4500ADEDDF /* Room.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Room.h; sourceTree = "<group>"; };
-		530369A22186BD4500ADEDDF /* ChatRoomManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatRoomManager.h; sourceTree = "<group>"; };
-		532EC4512186C2F4009C58E3 /* ChatRoomHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChatRoomHandler.h; sourceTree = "<group>"; };
-		532EC4522186C2F4009C58E3 /* ChatRoomHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChatRoomHandler.m; sourceTree = "<group>"; };
 		532EC45D21884DC0009C58E3 /* Conversion-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Conversion-Bridging-Header.h"; sourceTree = "<group>"; };
 		532EC45E21884DC0009C58E3 /* Dummy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dummy.swift; sourceTree = "<group>"; };
 		532EC46421886210009C58E3 /* Sample.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Sample.h; sourceTree = "<group>"; };
@@ -157,14 +151,8 @@
 				53BA80CA21756F7B0078DC5E /* TermsViewController.m */,
 				53908443217934BF000947E4 /* ConversionViewController.h */,
 				53908444217934BF000947E4 /* ConversionViewController.m */,
-				530369A22186BD4500ADEDDF /* ChatRoomManager.h */,
-				530369A02186BD4500ADEDDF /* ChatRoomManager.m */,
 				5303699F2186BD4500ADEDDF /* Message.h */,
 				5303699E2186BD4500ADEDDF /* Message.m */,
-				530369A12186BD4500ADEDDF /* Room.h */,
-				5303699D2186BD4400ADEDDF /* Room.m */,
-				532EC4512186C2F4009C58E3 /* ChatRoomHandler.h */,
-				532EC4522186C2F4009C58E3 /* ChatRoomHandler.m */,
 				532EC45E21884DC0009C58E3 /* Dummy.swift */,
 				532EC45D21884DC0009C58E3 /* Conversion-Bridging-Header.h */,
 				532EC46421886210009C58E3 /* Sample.h */,
@@ -310,7 +298,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				530369A32186BD4500ADEDDF /* Room.m in Sources */,
+				7DDE000D21B4E88900820738 /* Message.m in Sources */,
 				532EC45F21884DC1009C58E3 /* Dummy.swift in Sources */,
 				53BA80CB21756F7B0078DC5E /* TermsViewController.m in Sources */,
 				532EC46621886210009C58E3 /* Sample.m in Sources */,

@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 #import "Parse.h"
 #import "Message.h"
-#import "Room.h"
+//#import "Room.h"
 #import "Sample.h"
 
 @interface AppDelegate ()
@@ -66,7 +66,7 @@
 - (void)initParse {
     [Sample registerSubclass];
     [Message registerSubclass];
-    [Room registerSubclass];
+//    [Room registerSubclass];
     
     [Parse initializeWithConfiguration:[ParseClientConfiguration configurationWithBlock:^(id<ParseMutableClientConfiguration>  _Nonnull configuration) {
         // Add your Parse applicationId:

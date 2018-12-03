@@ -47,32 +47,32 @@
     [self.query whereKey:@"objectId" notEqualTo:@"asdfas"];
     self.subscription = [self.client subscribeToQuery:self.query];
     
-    __weak typeof(self) weakSelf = self;
-    [self.subscription addSubscribeHandler:^(PFQuery<Message *> * _Nonnull query) {
-        NSLog(@"subscribed");
-    }];
-    [self.subscription addCreateHandler:^(PFQuery<Message *> * _Nonnull query, PFObject * _Nonnull obj) {
-        if ([obj isKindOfClass:[Message class]]) {
-            Message *lMessage = (Message*)obj;
-            dispatch_async( dispatch_get_main_queue(), ^{
-                [weakSelf updateUI:lMessage];
-            });
-        }
-    }];
-    [self.subscription addUpdateHandler:^(PFQuery * _Nonnull query, PFObject * _Nonnull obj) {
-        NSLog(@"Update");
-        if ([obj isKindOfClass:[Message class]]) {
-            Message *lMessage = (Message*)obj;
-            dispatch_async( dispatch_get_main_queue(), ^{
-                [weakSelf updateUI:lMessage];
-            });
-        }
-    }];
-    
-    [self.subscription addErrorHandler:^(PFQuery * _Nonnull query, NSError * _Nonnull error) {
-        NSLog(@"Error");
-        [SVProgressHUD showErrorWithStatus:[error localizedDescription]];
-    }];
+//    __weak typeof(self) weakSelf = self;
+//    [self.subscription addSubscribeHandler:^(PFQuery<Message *> * _Nonnull query) {
+//        NSLog(@"subscribed");
+//    }];
+//    [self.subscription addCreateHandler:^(PFQuery<Message *> * _Nonnull query, PFObject * _Nonnull obj) {
+//        if ([obj isKindOfClass:[Message class]]) {
+//            Message *lMessage = (Message*)obj;
+//            dispatch_async( dispatch_get_main_queue(), ^{
+//                [weakSelf updateUI:lMessage];
+//            });
+//        }
+//    }];
+//    [self.subscription addUpdateHandler:^(PFQuery * _Nonnull query, PFObject * _Nonnull obj) {
+//        NSLog(@"Update");
+//        if ([obj isKindOfClass:[Message class]]) {
+//            Message *lMessage = (Message*)obj;
+//            dispatch_async( dispatch_get_main_queue(), ^{
+//                [weakSelf updateUI:lMessage];
+//            });
+//        }
+//    }];
+//    
+//    [self.subscription addErrorHandler:^(PFQuery * _Nonnull query, NSError * _Nonnull error) {
+//        NSLog(@"Error");
+//        [SVProgressHUD showErrorWithStatus:[error localizedDescription]];
+//    }];
 }
 
 -(void)updateUI:(Message *)aMessage {
