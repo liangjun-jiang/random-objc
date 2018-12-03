@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		07502F373FB896763F7D5C26 /* Pods_Conversion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5352ED2C3D8D718BD9274C4B /* Pods_Conversion.framework */; };
 		532EC45F21884DC1009C58E3 /* Dummy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 532EC45E21884DC0009C58E3 /* Dummy.swift */; };
 		532EC46621886210009C58E3 /* Sample.m in Sources */ = {isa = PBXBuildFile; fileRef = 532EC46521886210009C58E3 /* Sample.m */; };
 		532EC46821886BBF009C58E3 /* 2018-10-30-04-47-0.mov in Resources */ = {isa = PBXBuildFile; fileRef = 532EC46721886BBF009C58E3 /* 2018-10-30-04-47-0.mov */; };
@@ -27,7 +28,6 @@
 		53BA80C821756F660078DC5E /* SignUpLogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 53BA80C721756F660078DC5E /* SignUpLogInViewController.m */; };
 		53BA80CB21756F7B0078DC5E /* TermsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 53BA80CA21756F7B0078DC5E /* TermsViewController.m */; };
 		7DDE000D21B4E88900820738 /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 5303699E2186BD4500ADEDDF /* Message.m */; };
-		9A1C45E25AC7372B8E176ACC /* libPods-Conversion.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8746B7B7C8D30D76E4B9A270 /* libPods-Conversion.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +38,7 @@
 		532EC46421886210009C58E3 /* Sample.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Sample.h; sourceTree = "<group>"; };
 		532EC46521886210009C58E3 /* Sample.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Sample.m; sourceTree = "<group>"; };
 		532EC46721886BBF009C58E3 /* 2018-10-30-04-47-0.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = "2018-10-30-04-47-0.mov"; sourceTree = "<group>"; };
+		5352ED2C3D8D718BD9274C4B /* Pods_Conversion.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Conversion.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5384B27721766D3A0077B3AE /* AVCamPreviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVCamPreviewView.h; sourceTree = "<group>"; };
 		5384B27821766D3A0077B3AE /* AVCamPreviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AVCamPreviewView.m; sourceTree = "<group>"; };
 		5384B27A21766DFD0077B3AE /* AVCamCameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVCamCameraViewController.h; sourceTree = "<group>"; };
@@ -67,7 +68,6 @@
 		53BA80C721756F660078DC5E /* SignUpLogInViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SignUpLogInViewController.m; sourceTree = "<group>"; };
 		53BA80C921756F7B0078DC5E /* TermsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TermsViewController.h; sourceTree = "<group>"; };
 		53BA80CA21756F7B0078DC5E /* TermsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TermsViewController.m; sourceTree = "<group>"; };
-		8746B7B7C8D30D76E4B9A270 /* libPods-Conversion.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Conversion.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1FD679BBEB9C67066B134F9 /* Pods-Conversion.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Conversion.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Conversion/Pods-Conversion.debug.xcconfig"; sourceTree = "<group>"; };
 		FE0F78957B68E4A4AE4B8DF7 /* Pods-Conversion.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Conversion.release.xcconfig"; path = "Pods/Target Support Files/Pods-Conversion/Pods-Conversion.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -77,7 +77,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9A1C45E25AC7372B8E176ACC /* libPods-Conversion.a in Frameworks */,
+				07502F373FB896763F7D5C26 /* Pods_Conversion.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -164,7 +164,7 @@
 		FCBC7D04C138FE3D8EA3DF3C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				8746B7B7C8D30D76E4B9A270 /* libPods-Conversion.a */,
+				5352ED2C3D8D718BD9274C4B /* Pods_Conversion.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -180,7 +180,7 @@
 				53BA80A321756BEA0078DC5E /* Sources */,
 				53BA80A421756BEA0078DC5E /* Frameworks */,
 				53BA80A521756BEA0078DC5E /* Resources */,
-				1BCA1CD977CA4042A0AAFB74 /* [CP] Copy Pods Resources */,
+				4048E0E926A31B0626DCEEA5 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -245,7 +245,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1BCA1CD977CA4042A0AAFB74 /* [CP] Copy Pods Resources */ = {
+		4048E0E926A31B0626DCEEA5 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -253,20 +253,28 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Conversion/Pods-Conversion-resources.sh",
-				"${PODS_ROOT}/Parse/Parse/Resources/en.lproj",
-				"${PODS_ROOT}/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle",
+				"${SRCROOT}/Pods/Target Support Files/Pods-Conversion/Pods-Conversion-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Bolts-Swift/BoltsSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
+				"${BUILT_PRODUCTS_DIR}/Parse/Parse.framework",
+				"${BUILT_PRODUCTS_DIR}/ParseLiveQuery/ParseLiveQuery.framework",
+				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework",
 			);
-			name = "[CP] Copy Pods Resources";
+			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/en.lproj",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SVProgressHUD.bundle",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BoltsSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Parse.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ParseLiveQuery.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Starscream.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Conversion/Pods-Conversion-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Conversion/Pods-Conversion-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C0F475DAD7255DD06875E6F3 /* [CP] Check Pods Manifest.lock */ = {

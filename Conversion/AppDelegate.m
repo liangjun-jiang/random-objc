@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "Parse.h"
+#import <Parse/Parse.h>
 #import "Message.h"
 //#import "Room.h"
 #import "Sample.h"
