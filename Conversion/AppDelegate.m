@@ -70,17 +70,17 @@
     
     [Parse initializeWithConfiguration:[ParseClientConfiguration configurationWithBlock:^(id<ParseMutableClientConfiguration>  _Nonnull configuration) {
         // Add your Parse applicationId:
-        configuration.applicationId = @"UA_APPLICATION_ID";
+        configuration.applicationId = @"kbItPKQvKs";
         
         // Uncomment and add your clientKey (it's not required if you are using Parse Server):
-        configuration.clientKey = @"UA_CLIENT_KEY";
+        configuration.clientKey = @"VkTtAANbfN";
         
         // Uncomment the following line and change to your Parse Server address;
-        configuration.server = @"http://192.168.86.54:1337/parse";
+        configuration.server = @"https://my-digital-copy-server.herokuapp.com/parse";
         
         // Enable storing and querying data from Local Datastore. Remove this line if you don't want to
         // use Local Datastore features or want to use cachePolicy.
-        configuration.localDatastoreEnabled = YES;
+        configuration.localDatastoreEnabled = NO;
     }]];
     
 //    [PFUser enableAutomaticUser];

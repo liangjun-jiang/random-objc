@@ -58,7 +58,7 @@
 		5390844621793830000947E4 /* AAPLPlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAPLPlayerView.h; sourceTree = "<group>"; };
 		5390844721793830000947E4 /* AAPLPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAPLPlayerView.m; sourceTree = "<group>"; };
 		5390844A21793B42000947E4 /* ElephantSeals.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = ElephantSeals.mov; sourceTree = "<group>"; };
-		53BA80A721756BEA0078DC5E /* Conversion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Conversion.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		53BA80A721756BEA0078DC5E /* MyDigitalCopy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyDigitalCopy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		53BA80AA21756BEA0078DC5E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		53BA80AB21756BEA0078DC5E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		53BA80AD21756BEA0078DC5E /* RootViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
@@ -124,7 +124,7 @@
 		53BA80A821756BEA0078DC5E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				53BA80A721756BEA0078DC5E /* Conversion.app */,
+				53BA80A721756BEA0078DC5E /* MyDigitalCopy.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -203,7 +203,7 @@
 			);
 			name = Conversion;
 			productName = Conversion;
-			productReference = 53BA80A721756BEA0078DC5E /* Conversion.app */;
+			productReference = 53BA80A721756BEA0078DC5E /* MyDigitalCopy.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -269,14 +269,14 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Conversion/Pods-Conversion-resources.sh",
-				"${PODS_ROOT}/Parse/Parse/Resources/en.lproj",
+				"${PODS_CONFIGURATION_BUILD_DIR}/Parse/Parse.bundle",
 				"${PODS_ROOT}/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/en.lproj",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Parse.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SVProgressHUD.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -318,11 +318,8 @@
 				53BA80CB21756F7B0078DC5E /* TermsViewController.m in Sources */,
 				532EC46621886210009C58E3 /* Sample.m in Sources */,
 				53BA80C821756F660078DC5E /* SignUpLogInViewController.m in Sources */,
-				530369A42186BD4500ADEDDF /* Message.m in Sources */,
 				5384B27921766D3A0077B3AE /* AVCamPreviewView.m in Sources */,
-				530369A52186BD4500ADEDDF /* ChatRoomManager.m in Sources */,
 				53BA80C021756BEC0078DC5E /* main.m in Sources */,
-				532EC4532186C2F4009C58E3 /* ChatRoomHandler.m in Sources */,
 				53BA80AF21756BEA0078DC5E /* RootViewController.m in Sources */,
 				5390844821793830000947E4 /* AAPLPlayerView.m in Sources */,
 				5384B27F21766EB30077B3AE /* AVCamPhotoCaptureDelegate.m in Sources */,
@@ -476,14 +473,14 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 8ZMZWMEMPT;
+				DEVELOPMENT_TEAM = 3VLRR3P3BN;
 				INFOPLIST_FILE = Conversion/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = edu.ua.drwu.Conversion;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = MyDigitalCopy;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Conversion/Conversion-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -500,14 +497,14 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 8ZMZWMEMPT;
+				DEVELOPMENT_TEAM = 3VLRR3P3BN;
 				INFOPLIST_FILE = Conversion/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = edu.ua.drwu.Conversion;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = MyDigitalCopy;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Conversion/Conversion-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
