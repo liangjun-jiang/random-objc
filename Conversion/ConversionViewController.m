@@ -176,6 +176,12 @@
     [SVProgressHUD showInfoWithStatus:@"not ready yet"];
 }
 
+-(IBAction)onSignOff:(id)sender {
+    if ([PFUser currentUser]) {
+        [PFUser logOut];
+        [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+    }
+}
 
 - (IBAction)onSubscribe:(id)sender {
     [SVProgressHUD showInfoWithStatus:@"not ready yet"];

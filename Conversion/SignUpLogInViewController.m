@@ -30,12 +30,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.isUser = NO;
     self.signUpPasswordTextField.secureTextEntry = YES;
     self.loginPasswordTextField.secureTextEntry = YES;
 }
 
 -(IBAction)onSignUpAsUser:(id)sender {
-    self.isUser = true;
+    self.isUser = YES;
     [self onSignUp:nil];
 }
     
@@ -47,7 +48,7 @@
     PFUser *user = [PFUser user];
     user.username = userName;
     user.password = password;
-    user[@"isUser"] = @(YES);
+    user[@"isUser"] = @(self.isUser);
     
     if (email) {
         user.email = email;

@@ -239,7 +239,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Q1s-aF-AI9"/>
                     </view>
-                    <navigationItem key="navigationItem" id="1RB-O5-SOB"/>
+                    <navigationItem key="navigationItem" id="1RB-O5-SOB">
+                        <barButtonItem key="rightBarButtonItem" title="Sign Off" id="a4z-0L-RLc">
+                            <connections>
+                                <action selector="onSignOff:" destination="ccf-ek-0JP" id="k3i-EW-z8f"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="agentSaysContentLabel" destination="tQx-Gf-Vwf" id="vlh-Uv-bXe"/>
                         <outlet property="agentThinksContentLabel" destination="dYV-B4-4Ry" id="bcf-KF-gHa"/>

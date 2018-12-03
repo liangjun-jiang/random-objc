@@ -211,6 +211,7 @@ typedef NS_ENUM( NSInteger, AVCamDepthDataDeliveryMode ) {
 -(IBAction)onSignOff:(id)sender {
     if([PFUser currentUser]) {
         [PFUser logOut];
+        [self.navigationController dismissViewControllerAnimated:YES completion:nil];
     }
 }
 
