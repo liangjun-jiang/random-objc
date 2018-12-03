@@ -16,20 +16,20 @@ parse-server --appId UA_APPLICATION_ID --masterKey UA_MASTER_KEY --clientKey UA_
 3. step 3
 ```
 curl -X POST \
--H "X-Parse-Application-Id: UA_APPLICATION_ID" \
--H "X-Parse-Client-Key: UA_CLIENT_KEY" \
+-H "X-Parse-Application-Id: kbItPKQvKs" \
+-H "X-Parse-Client-Key: VkTtAANbfN" \
 -H "Content-Type: application/json" \
 -d '{  
    "agentSays":"Does it work?",
    "agentThinks":"I think it won't",
    "videoSample":{  
-      "objectId":"90Co3Jewns",
+      "objectId":"7efuknSoio",
       "__type":"Pointer",
       "className":"Sample",
       "videoFile":{  
           "__type":"File",
-          "name":"5e55cba266b5d183d9c7f05d141e2ffb_2018-11-02-01-38-0.mov",
-          "url":"http://localhost:1337/parse/files/UA_APPLICATION_ID/5e55cba266b5d183d9c7f05d141e2ffb_2018-11-02-01-38-0.mov"
+          "name":"a40580a5f38569a2dcc15676f673bd1c_2018-12-02-22-40-0.mov",
+          "url":"http://my-digital-copy-server.herokuapp.com/parse/files/kbItPKQvKs/a40580a5f38569a2dcc15676f673bd1c_2018-12-02-22-40-0.mov"
       },
       "owner":{  
           "__type":"Pointer",
@@ -50,7 +50,7 @@ curl -X POST \
     },
    "userName":"lj1"
 }' \
-http://localhost:1337/parse/classes/Message
+https://my-digital-copy-server.herokuapp.com/parse/classes/Message
 ```
 
 {  
