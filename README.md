@@ -1,3 +1,10 @@
+## ParseLiveQuery Issue
+There are some issues with ParseLiveQuery Swift framework. Basically, Xcode 10.1 is not able to recognize some objective-C methods defined in ObjcCompat.swift.
+An fix version of this file is added in the root of this project.
+So have to manually replace ObjcCompat.swift in Pods with this one.
+
+
+
 1. step 1
 ```
 mongodb-runner start
