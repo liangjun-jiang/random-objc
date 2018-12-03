@@ -8,9 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		530369A32186BD4500ADEDDF /* Room.m in Sources */ = {isa = PBXBuildFile; fileRef = 5303699D2186BD4400ADEDDF /* Room.m */; };
-		530369A42186BD4500ADEDDF /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 5303699E2186BD4500ADEDDF /* Message.m */; };
-		530369A52186BD4500ADEDDF /* ChatRoomManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 530369A02186BD4500ADEDDF /* ChatRoomManager.m */; };
-		532EC4532186C2F4009C58E3 /* ChatRoomHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 532EC4522186C2F4009C58E3 /* ChatRoomHandler.m */; };
 		532EC45F21884DC1009C58E3 /* Dummy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 532EC45E21884DC0009C58E3 /* Dummy.swift */; };
 		532EC46621886210009C58E3 /* Sample.m in Sources */ = {isa = PBXBuildFile; fileRef = 532EC46521886210009C58E3 /* Sample.m */; };
 		532EC46821886BBF009C58E3 /* 2018-10-30-04-47-0.mov in Resources */ = {isa = PBXBuildFile; fileRef = 532EC46721886BBF009C58E3 /* 2018-10-30-04-47-0.mov */; };
@@ -269,14 +266,14 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Conversion/Pods-Conversion-resources.sh",
-				"${PODS_CONFIGURATION_BUILD_DIR}/Parse/Parse.bundle",
+				"${PODS_ROOT}/Parse/Parse/Resources/en.lproj",
 				"${PODS_ROOT}/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Parse.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/en.lproj",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SVProgressHUD.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -473,13 +470,13 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 3VLRR3P3BN;
+				DEVELOPMENT_TEAM = 4AUGV3XFR6;
 				INFOPLIST_FILE = Conversion/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = edu.ua.drwu.Conversion;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.arizona.mydigitalcopy;
 				PRODUCT_NAME = MyDigitalCopy;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Conversion/Conversion-Bridging-Header.h";
@@ -497,13 +494,13 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 3VLRR3P3BN;
+				DEVELOPMENT_TEAM = 4AUGV3XFR6;
 				INFOPLIST_FILE = Conversion/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = edu.ua.drwu.Conversion;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.arizona.mydigitalcopy;
 				PRODUCT_NAME = MyDigitalCopy;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Conversion/Conversion-Bridging-Header.h";
