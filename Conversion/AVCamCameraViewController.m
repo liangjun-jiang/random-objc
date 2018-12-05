@@ -823,11 +823,12 @@ typedef NS_ENUM( NSInteger, AVCamDepthDataDeliveryMode ) {
             }
             
             // Start recording to a temporary file.
-            NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
-            [formatter setDateFormat:@"yyyy-MM-dd-HH-mm"];
-            NSDate* now = [NSDate date];
+//            NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
+//            [formatter setDateFormat:@"yyyy-MM-dd-HH-mm"];
+//            NSDate* now = [NSDate date];
             
-            NSString *outputFileName = [NSString stringWithFormat:@"%@-%d", [formatter stringFromDate:now], self.currentIndex];
+//            NSString *outputFileName = [NSString stringWithFormat:@"%@-%d", [formatter stringFromDate:now], self.currentIndex];
+            NSString *outputFileName = [NSString stringWithFormat:@"%d", self.currentIndex];
             NSArray *dirs = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
             NSString *documentsDirectoryPath = [dirs objectAtIndex:0];
             NSString *outputFilePath = [documentsDirectoryPath stringByAppendingPathComponent:[outputFileName stringByAppendingPathExtension:@"mov"]];
@@ -902,6 +903,7 @@ typedef NS_ENUM( NSInteger, AVCamDepthDataDeliveryMode ) {
             if (!error) {
                 PFObject *sample = [PFObject objectWithClassName:@"Sample"];
                 [sample setObject:videoFile forKey:@"videoFile"];
+                [sample setObject: [NSString stringWithFormat:@"%d.mov", self.currentIndex] forKey:@"videoIndex"];
                 [sample setObject:[PFUser currentUser] forKey:@"owner"];
                 [sample saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
                     if (!error) {

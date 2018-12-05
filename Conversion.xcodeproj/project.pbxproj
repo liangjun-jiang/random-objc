@@ -10,7 +10,6 @@
 		38D650689D6C1E681C1528E7 /* Pods_Conversion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E0EEE7C2EA937F41018E263 /* Pods_Conversion.framework */; };
 		532EC45F21884DC1009C58E3 /* Dummy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 532EC45E21884DC0009C58E3 /* Dummy.swift */; };
 		532EC46621886210009C58E3 /* Sample.m in Sources */ = {isa = PBXBuildFile; fileRef = 532EC46521886210009C58E3 /* Sample.m */; };
-		532EC46821886BBF009C58E3 /* 2018-10-30-04-47-0.mov in Resources */ = {isa = PBXBuildFile; fileRef = 532EC46721886BBF009C58E3 /* 2018-10-30-04-47-0.mov */; };
 		5362D27F218C41B40087746F /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5362D27E218C41B30087746F /* SafariServices.framework */; };
 		5384B27921766D3A0077B3AE /* AVCamPreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5384B27821766D3A0077B3AE /* AVCamPreviewView.m */; };
 		5384B27C21766DFE0077B3AE /* AVCamCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5384B27B21766DFE0077B3AE /* AVCamCameraViewController.m */; };
@@ -39,7 +38,6 @@
 		532EC45E21884DC0009C58E3 /* Dummy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dummy.swift; sourceTree = "<group>"; };
 		532EC46421886210009C58E3 /* Sample.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Sample.h; sourceTree = "<group>"; };
 		532EC46521886210009C58E3 /* Sample.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Sample.m; sourceTree = "<group>"; };
-		532EC46721886BBF009C58E3 /* 2018-10-30-04-47-0.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = "2018-10-30-04-47-0.mov"; sourceTree = "<group>"; };
 		5362D27E218C41B30087746F /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 		5384B27721766D3A0077B3AE /* AVCamPreviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVCamPreviewView.h; sourceTree = "<group>"; };
 		5384B27821766D3A0077B3AE /* AVCamPreviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AVCamPreviewView.m; sourceTree = "<group>"; };
@@ -100,7 +98,6 @@
 		5390844921793B30000947E4 /* sample-video */ = {
 			isa = PBXGroup;
 			children = (
-				532EC46721886BBF009C58E3 /* 2018-10-30-04-47-0.mov */,
 				5390844A21793B42000947E4 /* ElephantSeals.mov */,
 			);
 			path = "sample-video";
@@ -243,7 +240,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				532EC46821886BBF009C58E3 /* 2018-10-30-04-47-0.mov in Resources */,
 				53BA80BD21756BEC0078DC5E /* LaunchScreen.storyboard in Resources */,
 				53BA80BA21756BEC0078DC5E /* Assets.xcassets in Resources */,
 				5390844B21793B42000947E4 /* ElephantSeals.mov in Resources */,

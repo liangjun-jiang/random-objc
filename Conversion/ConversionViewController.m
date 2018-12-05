@@ -98,33 +98,65 @@
     
     self.agentThinksContentLabel.text = aMessage.agentThinks;
     
-    Sample *sample = aMessage.videoSample;
-    
-    if (sample.videoFile && sample.videoFile.name) {
-        //5e55cba266b5d183d9c7f05d141e2ffb_2018-11-02-01-38-0.mov -> 2018-10-30-04-47-0.mov
+//    Sample *sample = aMessage.videoSample;
+    NSInteger index = aMessage.videoIndex;
+    if (index >= 0 && index <=11) {
         NSArray *paths = [[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];
         NSURL *documentsURL = [paths lastObject];
-        NSURL *outputFileURL = [documentsURL URLByAppendingPathComponent:sample.videoFile.name];
+        NSString *videoIndex = [NSString stringWithFormat:@"%ld.mov", index];
+        NSURL *outputFileURL = [documentsURL URLByAppendingPathComponent: videoIndex];
         
         if ([[NSFileManager defaultManager] fileExistsAtPath:[outputFileURL absoluteString]]) {
             [self playVideo:outputFileURL];
         } else {
-            PFFile *videoFile = sample.videoFile;
-            [videoFile getDataInBackgroundWithBlock:^(NSData * _Nullable data, NSError * _Nullable error) {
-                if (error) {
-                    [SVProgressHUD showErrorWithStatus:[error localizedDescription]];
-                } else {
-                    NSError *error = nil;
-                    [data writeToURL:outputFileURL options:NSDataWritingAtomic error:&error];
-                    if (error == nil) {
-                        [self playVideo:outputFileURL];
-                    } else {
-                        NSLog(@"Write returned error: %@", [error localizedDescription]);
-                    }
+            PFQuery *sampleQuery = [PFQuery queryWithClassName:@"Sample"];
+            [sampleQuery whereKey:@"videoIndex" equalTo:videoIndex];
+            [sampleQuery getFirstObjectInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+                if (!error) {
+                    Sample *sample = (Sample*)object;
+                    PFFile *videoFile = sample.videoFile;
+                    [videoFile getDataInBackgroundWithBlock:^(NSData * _Nullable data, NSError * _Nullable error) {
+                        if (error) {
+                            [SVProgressHUD showErrorWithStatus:[error localizedDescription]];
+                        } else {
+                            NSError *error = nil;
+                            [data writeToURL:outputFileURL options:NSDataWritingAtomic error:&error];
+                            if (error == nil) {
+                                [self playVideo:outputFileURL];
+                            } else {
+                                NSLog(@"Write returned error: %@", [error localizedDescription]);
+                            }
+                        }
+                    }];
                 }
             }];
         }
     }
+//    if (sample.videoFile && sample.videoFile.name) {
+//        //5e55cba266b5d183d9c7f05d141e2ffb_2018-11-02-01-38-0.mov -> 2018-10-30-04-47-0.mov
+//        NSArray *paths = [[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];
+//        NSURL *documentsURL = [paths lastObject];
+//        NSURL *outputFileURL = [documentsURL URLByAppendingPathComponent:sample.videoFile.name];
+//
+//        if ([[NSFileManager defaultManager] fileExistsAtPath:[outputFileURL absoluteString]]) {
+//            [self playVideo:outputFileURL];
+//        } else {
+//            PFFile *videoFile = sample.videoFile;
+//            [videoFile getDataInBackgroundWithBlock:^(NSData * _Nullable data, NSError * _Nullable error) {
+//                if (error) {
+//                    [SVProgressHUD showErrorWithStatus:[error localizedDescription]];
+//                } else {
+//                    NSError *error = nil;
+//                    [data writeToURL:outputFileURL options:NSDataWritingAtomic error:&error];
+//                    if (error == nil) {
+//                        [self playVideo:outputFileURL];
+//                    } else {
+//                        NSLog(@"Write returned error: %@", [error localizedDescription]);
+//                    }
+//                }
+//            }];
+//        }
+//    }
 }
 
 #pragma mark - Play video
