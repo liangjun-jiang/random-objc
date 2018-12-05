@@ -220,6 +220,64 @@
     }];
 }
 
+// TODO: this logic is supposed to put in the backend.
+-(void)fetchAgentMessage:(NSString *)message {
+    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:1];
+    dict[@"message"] = message;
+    NSData * JsonData =[NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:nil];
+    
+    NSString *nlpServerUrl = @"https://dialog-nlp-server.herokuapp.com/api/message";
+    NSString *parameterJsonString= [[NSString alloc] initWithData:JsonData encoding:NSUTF8StringEncoding];
+    
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration ephemeralSessionConfiguration];
+    configuration.timeoutIntervalForRequest = 30.0;
+    configuration.timeoutIntervalForResource = 60.0;
+    configuration.requestCachePolicy =  NSURLRequestReloadIgnoringLocalAndRemoteCacheData;
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
+    
+    NSURL *urlStr = [NSURL URLWithString:nlpServerUrl];
+    NSData *postData = [parameterJsonString dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
+    NSString *postLength = [NSString stringWithFormat:@"%lu",(unsigned long)[postData length]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:urlStr
+                                                           cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:60.0];
+    [request setHTTPMethod:@"POST"];
+    [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request setHTTPBody:postData];
+    [[session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error)
+      {
+          if (error)
+          {
+              dispatch_async(dispatch_get_main_queue(), ^{
+                  [SVProgressHUD showErrorWithStatus:@"Oops, Server returns error!"];
+              });
+          }
+          else
+          {
+              dispatch_async(dispatch_get_main_queue(), ^{
+                  NSError *error;
+                  NSDictionary *response = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+                  Message *message = [[Message alloc] init];
+                  message.agentThinks = response[@"agentThinks"];
+                  message.agentSays = response[@"agentSays"];
+                  message.videoIndex = [response[@"videoIndex"] integerValue];
+                  message.userSays = [self.userSaysTextView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+                  //    if (self.currentAgentMessage && self.currentAgentMessage.videoSample)
+                  //        message.videoSample = self.currentAgentMessage.videoSample;
+                  message.user = [PFUser currentUser];
+                  [message saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+                      if (!error) {
+                          NSLog(@"message sent");
+                      }
+                  }];
+                  
+              });
+          }
+          
+      }] resume];
+}
+
+
 
 
 #pragma mark - UITextView Delegate

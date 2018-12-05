@@ -1102,7 +1102,6 @@ typedef NS_ENUM( NSInteger, AVCamDepthDataDeliveryMode ) {
 - (void)countdown:(id)data {
     self.dataLabel.text = [NSString stringWithFormat:@"%d sec",self.initSecs--];
     if (self.initSecs < 0) {
-        //todo: move to the next one
         [self.countdownTimer invalidate];
         self.countdownTimer = nil;
         // we stop the recording by mimicing the user's action
@@ -1112,6 +1111,9 @@ typedef NS_ENUM( NSInteger, AVCamDepthDataDeliveryMode ) {
             self.initSecs = 10;
             self.currentIndex++;
             self.instructionLabel.text = [NSString stringWithFormat:@"Step %d: %@", self.currentIndex + 1, self.pageData[self.currentIndex][@"instruction"]];
+        } else {
+            [SVProgressHUD showSuccessWithStatus:@"You have finished recording. You can exit now"];
+            [self.recordButton setEnabled:NO];
         }
     }
 }
