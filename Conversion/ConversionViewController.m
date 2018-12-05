@@ -26,9 +26,9 @@
 @property AVPlayerItem *playerItem;
 
 @property (readonly) AVPlayerLayer *playerLayer;
-@property (nonatomic, strong) PFLiveQueryClient *client;
+//@property (nonatomic, strong) PFLiveQueryClient *client;
 @property (nonatomic, strong) PFQuery *query;
-@property (nonatomic, strong) PFLiveQuerySubscription *subscription;
+//@property (nonatomic, strong) PFLiveQuerySubscription *subscription;
 
 @property (nonatomic, weak) IBOutlet UIButton *resetButton;
 @property (nonatomic, weak) IBOutlet UIButton *correctButton;
@@ -84,21 +84,24 @@
 //    }];
 }
 
+-(void)speech:(NSString *)text {
+    if (self.synthesizer == nil)
+        self.synthesizer = [[AVSpeechSynthesizer alloc] init];
+    AVSpeechUtterance *speechutt = [AVSpeechUtterance speechUtteranceWithString:text];
+    [speechutt setRate:0.3f];
+    speechutt.voice = [AVSpeechSynthesisVoice voiceWithLanguage:@"en-us"];
+    [self.synthesizer speakUtterance:speechutt];
+}
+
 -(void)updateUI:(Message *)aMessage {
     self.agentSaysContentLabel.text = aMessage.agentSays;
     //speak it
     if (aMessage.agentSays && [aMessage.agentSays length] > 0) {
-        if (self.synthesizer == nil)
-        self.synthesizer = [[AVSpeechSynthesizer alloc] init];
-        AVSpeechUtterance *speechutt = [AVSpeechUtterance speechUtteranceWithString:aMessage.agentSays];
-        [speechutt setRate:0.3f];
-        speechutt.voice = [AVSpeechSynthesisVoice voiceWithLanguage:@"en-us"];
-        [self.synthesizer speakUtterance:speechutt];
+        [self speech:aMessage.agentSays];
     }
     
     self.agentThinksContentLabel.text = aMessage.agentThinks;
     
-//    Sample *sample = aMessage.videoSample;
     NSInteger index = aMessage.videoIndex;
     if (index >= 0 && index <=11) {
         NSArray *paths = [[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];
@@ -107,6 +110,7 @@
         NSURL *outputFileURL = [documentsURL URLByAppendingPathComponent: videoIndex];
         
         if ([[NSFileManager defaultManager] fileExistsAtPath:[outputFileURL absoluteString]]) {
+            //TODO: better that we let it speak right now
             [self playVideo:outputFileURL];
         } else {
             PFQuery *sampleQuery = [PFQuery queryWithClassName:@"Sample"];
@@ -115,7 +119,9 @@
                 if (!error) {
                     Sample *sample = (Sample*)object;
                     PFFile *videoFile = sample.videoFile;
+                    [SVProgressHUD showWithStatus:@"Loading..."];
                     [videoFile getDataInBackgroundWithBlock:^(NSData * _Nullable data, NSError * _Nullable error) {
+                        [SVProgressHUD dismiss];
                         if (error) {
                             [SVProgressHUD showErrorWithStatus:[error localizedDescription]];
                         } else {
@@ -226,7 +232,8 @@
 -(IBAction)onSignOff:(id)sender {
     if ([PFUser currentUser]) {
         [PFUser logOut];
-        [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+        UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+        window.rootViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"LogInSignUpNavController"];
     }
 }
 

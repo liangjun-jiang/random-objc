@@ -13,6 +13,7 @@
 #import "AVCamPhotoCaptureDelegate.h"
 #import "Parse/Parse.h"
 #import "SVProgressHUD.h"
+#import "Sample.h"
 
 static void * SessionRunningContext = &SessionRunningContext;
 
@@ -211,7 +212,8 @@ typedef NS_ENUM( NSInteger, AVCamDepthDataDeliveryMode ) {
 -(IBAction)onSignOff:(id)sender {
     if([PFUser currentUser]) {
         [PFUser logOut];
-        [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+        UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+        window.rootViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"LogInSignUpNavController"];
     }
 }
 
@@ -901,15 +903,14 @@ typedef NS_ENUM( NSInteger, AVCamDepthDataDeliveryMode ) {
         PFFile *videoFile = [PFFile fileWithName:[outputFileURL lastPathComponent] data:videoData];
         [videoFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
             if (!error) {
-                PFObject *sample = [PFObject objectWithClassName:@"Sample"];
-                [sample setObject:videoFile forKey:@"videoFile"];
-                [sample setObject: [NSString stringWithFormat:@"%d.mov", self.currentIndex] forKey:@"videoIndex"];
-                [sample setObject:[PFUser currentUser] forKey:@"owner"];
+                Sample *sample = [[Sample alloc] init];
+                sample.videoFile = videoFile;
+                sample.videoIndex = [NSString stringWithFormat:@"%d.mov", self.currentIndex];
                 [sample saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
                     if (!error) {
-                         dispatch_async( dispatch_get_main_queue(), ^{
-                             [SVProgressHUD showSuccessWithStatus:@"Video Uploaded"];
-                         });
+                        dispatch_async( dispatch_get_main_queue(), ^{
+                            [SVProgressHUD showSuccessWithStatus:@"Video Uploaded"];
+                        });
                     }
                 }];
             }
@@ -1094,7 +1095,7 @@ typedef NS_ENUM( NSInteger, AVCamDepthDataDeliveryMode ) {
                   @{@"index":@11, @"instruction":@"Please keep sad emotion on your face and keep talking with your mouth moving but don't make any sound and press the record button and hold for 10 sec"}
                   ];
     
-    _currentIndex = 10;
+    _currentIndex = 0;
     self.initSecs = 10;
     
     self.dataLabel.text = [NSString stringWithFormat:@"%d sec",self.initSecs];

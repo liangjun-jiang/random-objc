@@ -97,7 +97,7 @@
         <!--Navigation Controller-->
         <scene sceneID="jcA-Hc-YWh">
             <objects>
-                <navigationController id="eJB-wg-vF4" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="LogInSignUpNavController" id="eJB-wg-vF4" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="KGm-Nc-Yyh">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
