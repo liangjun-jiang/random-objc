@@ -53,14 +53,14 @@
     if (email) {
         user.email = email;
     }
-    
+    __weak typeof(self) weakSelf = self;
     [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
         if (!error) {
             [self saveLoggedInOrSignedUp];
-            if (self.isUser) {
-                [self presentUserInterface];
+            if (weakSelf.isUser) {
+                [weakSelf presentUserInterface];
             } else {
-                [self presentTermsViewController];
+                [weakSelf presentTermsViewController];
             }
         } else {
             [SVProgressHUD showErrorWithStatus: [error localizedDescription]];
@@ -72,13 +72,15 @@
     NSString *userName = [self.loginUserNameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     NSString *password = [self.loginPasswordTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     NSString *email = [self.loginEmailTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    
+    __weak typeof(self) weakSelf = self;
     [PFUser logInWithUsernameInBackground:userName password:password block:^(PFUser *user, NSError *error){
         if (!error) {
-            [self saveLoggedInOrSignedUp];
-            if (user[@"isUser"]) {
-                [self presentUserInterface];
+            [weakSelf saveLoggedInOrSignedUp];
+            if (weakSelf.isUser) {
+                [weakSelf presentUserInterface];
             } else
-                [self presentTermsViewController];
+                [weakSelf presentTermsViewController];
         } else {
             [SVProgressHUD showErrorWithStatus: [error localizedDescription]];
         }
@@ -92,7 +94,8 @@
 
 -(void)presentUserInterface {
     UINavigationController *navController = [self.storyboard instantiateViewControllerWithIdentifier:@"ConversionNavController"];
-    [self.navigationController presentViewController:navController animated:YES completion:nil];
+    UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+    window.rootViewController = navController;    [self.navigationController presentViewController:navController animated:YES completion:nil];
 }
 
 

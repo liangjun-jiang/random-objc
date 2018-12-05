@@ -1092,7 +1092,7 @@ typedef NS_ENUM( NSInteger, AVCamDepthDataDeliveryMode ) {
                   @{@"index":@11, @"instruction":@"Please keep sad emotion on your face and keep talking with your mouth moving but don't make any sound and press the record button and hold for 10 sec"}
                   ];
     
-    _currentIndex = 0;
+    _currentIndex = 10;
     self.initSecs = 10;
     
     self.dataLabel.text = [NSString stringWithFormat:@"%d sec",self.initSecs];
@@ -1107,9 +1107,9 @@ typedef NS_ENUM( NSInteger, AVCamDepthDataDeliveryMode ) {
         // we stop the recording by mimicing the user's action
         [self toggleMovieRecording:self.recordButton];
         
+        self.currentIndex++;
         if (self.currentIndex < [self.pageData count]) {
             self.initSecs = 10;
-            self.currentIndex++;
             self.instructionLabel.text = [NSString stringWithFormat:@"Step %d: %@", self.currentIndex + 1, self.pageData[self.currentIndex][@"instruction"]];
         } else {
             [SVProgressHUD showSuccessWithStatus:@"You have finished recording. You can exit now"];

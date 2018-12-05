@@ -57,11 +57,18 @@
     // Override point for customization after application launch.
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{@"isAcceptedTerm": @NO}];
     
-//    if ([PFUser currentUser]) {
-//        UIStoryboard *mainStoryborad = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-//        self.window.rootViewController = [mainStoryborad instantiateViewControllerWithIdentifier:@"RootViewController"];
-//    }
+    if ([PFUser currentUser]) {
+        UIStoryboard *mainStoryborad = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        if ([PFUser currentUser][@"isUser"]) {
+            UINavigationController *navController = [mainStoryborad instantiateViewControllerWithIdentifier:@"ConversionNavController"];
+            self.window.rootViewController = navController;
+        } else {
+            self.window.rootViewController = [mainStoryborad instantiateViewControllerWithIdentifier:@"CameraNavigationController"];
+        }
+    }
 }
+
+
 
 - (void)initParse {
     [Sample registerSubclass];

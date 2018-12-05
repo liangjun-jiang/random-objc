@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, strong) Sample *videoSample;
 @property (nullable, nonatomic, strong) PFObject *room;
 @property (nullable, nonatomic, strong) NSString *roomName;
-@property (nullable, nonatomic, assign) NSInteger videoIndex;
+@property (nonatomic, assign) NSInteger videoIndex;
 
 @end
 

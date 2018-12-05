@@ -70,6 +70,7 @@
 		53BA80C721756F660078DC5E /* SignUpLogInViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SignUpLogInViewController.m; sourceTree = "<group>"; };
 		53BA80C921756F7B0078DC5E /* TermsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TermsViewController.h; sourceTree = "<group>"; };
 		53BA80CA21756F7B0078DC5E /* TermsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TermsViewController.m; sourceTree = "<group>"; };
+		7DE87F8821B82DA1006E2963 /* MyDigitalCopy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyDigitalCopy.entitlements; sourceTree = "<group>"; };
 		F1FD679BBEB9C67066B134F9 /* Pods-Conversion.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Conversion.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Conversion/Pods-Conversion.debug.xcconfig"; sourceTree = "<group>"; };
 		FE0F78957B68E4A4AE4B8DF7 /* Pods-Conversion.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Conversion.release.xcconfig"; path = "Pods/Target Support Files/Pods-Conversion/Pods-Conversion.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -126,6 +127,7 @@
 		53BA80A921756BEA0078DC5E /* Conversion */ = {
 			isa = PBXGroup;
 			children = (
+				7DE87F8821B82DA1006E2963 /* MyDigitalCopy.entitlements */,
 				5390844921793B30000947E4 /* sample-video */,
 				5384B27A21766DFD0077B3AE /* AVCamCameraViewController.h */,
 				5384B27B21766DFE0077B3AE /* AVCamCameraViewController.m */,
@@ -209,6 +211,9 @@
 						LastSwiftMigration = 1000;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.Push = {
 								enabled = 1;
 							};
 						};
@@ -468,6 +473,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Conversion/MyDigitalCopy.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4AUGV3XFR6;
@@ -482,7 +488,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "Conversion/Conversion-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -492,6 +498,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Conversion/MyDigitalCopy.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4AUGV3XFR6;
@@ -505,7 +512,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Conversion/Conversion-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

@@ -47,41 +47,41 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.client = [[PFLiveQueryClient alloc] init];
-    self.query = [PFQuery queryWithClassName:@"Message"];
-    [self.query includeKey:@"videoSample.videoFile"];
-    if ([PFUser currentUser])
-        [self.query whereKey:@"user" notEqualTo:[PFUser currentUser]];
-    self.subscription = [self.client subscribeToQuery:self.query];
-    
-    __weak typeof(self) weakSelf = self;
-    [self.subscription addSubscribeHandler:^(PFQuery<Message *> * _Nonnull query) {
-        NSLog(@"subscribed");
-    }];
-    [self.subscription addCreateHandler:^(PFQuery<Message *> * _Nonnull query, PFObject * _Nonnull obj) {
-        if ([obj isKindOfClass:[Message class]]) {
-            Message *lMessage = (Message*)obj;
-            weakSelf.currentAgentMessage = lMessage; // really for tracking user's content
-            dispatch_async( dispatch_get_main_queue(), ^{
-                [weakSelf updateUI:lMessage];
-            });
-        }
-    }];
-    [self.subscription addUpdateHandler:^(PFQuery * _Nonnull query, PFObject * _Nonnull obj) {
-        NSLog(@"Update");
-        if ([obj isKindOfClass:[Message class]]) {
-            Message *lMessage = (Message*)obj;
-            weakSelf.currentAgentMessage = lMessage;
-            dispatch_async( dispatch_get_main_queue(), ^{
-                [weakSelf updateUI:lMessage];
-            });
-        }
-    }];
-    
-    [self.subscription addErrorHandler:^(PFQuery * _Nonnull query, NSError * _Nonnull error) {
-        NSLog(@"Error");
-        [SVProgressHUD showErrorWithStatus:[error localizedDescription]];
-    }];
+//    self.client = [[PFLiveQueryClient alloc] init];
+//    self.query = [PFQuery queryWithClassName:@"Message"];
+//    [self.query includeKey:@"videoSample.videoFile"];
+//    if ([PFUser currentUser])
+//        [self.query whereKey:@"user" notEqualTo:[PFUser currentUser]];
+//    self.subscription = [self.client subscribeToQuery:self.query];
+//    
+//    __weak typeof(self) weakSelf = self;
+//    [self.subscription addSubscribeHandler:^(PFQuery<Message *> * _Nonnull query) {
+//        NSLog(@"subscribed");
+//    }];
+//    [self.subscription addCreateHandler:^(PFQuery<Message *> * _Nonnull query, PFObject * _Nonnull obj) {
+//        if ([obj isKindOfClass:[Message class]]) {
+//            Message *lMessage = (Message*)obj;
+//            weakSelf.currentAgentMessage = lMessage; // really for tracking user's content
+//            dispatch_async( dispatch_get_main_queue(), ^{
+//                [weakSelf updateUI:lMessage];
+//            });
+//        }
+//    }];
+//    [self.subscription addUpdateHandler:^(PFQuery * _Nonnull query, PFObject * _Nonnull obj) {
+//        NSLog(@"Update");
+//        if ([obj isKindOfClass:[Message class]]) {
+//            Message *lMessage = (Message*)obj;
+//            weakSelf.currentAgentMessage = lMessage;
+//            dispatch_async( dispatch_get_main_queue(), ^{
+//                [weakSelf updateUI:lMessage];
+//            });
+//        }
+//    }];
+//    
+//    [self.subscription addErrorHandler:^(PFQuery * _Nonnull query, NSError * _Nonnull error) {
+//        NSLog(@"Error");
+//        [SVProgressHUD showErrorWithStatus:[error localizedDescription]];
+//    }];
 }
 
 -(void)updateUI:(Message *)aMessage {
@@ -213,9 +213,13 @@
 //    if (self.currentAgentMessage && self.currentAgentMessage.videoSample)
 //        message.videoSample = self.currentAgentMessage.videoSample;
     message.user = [PFUser currentUser];
+    __weak typeof(self) weakSelf = self;
     [message saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
         if (!error) {
             NSLog(@"message sent");
+            [weakSelf fetchAgentMessage:message.userSays];
+        } else {
+            [SVProgressHUD showErrorWithStatus:@"Something went wrong!"];
         }
     }];
 }
@@ -254,24 +258,22 @@
           }
           else
           {
-              dispatch_async(dispatch_get_main_queue(), ^{
-                  NSError *error;
-                  NSDictionary *response = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
-                  Message *message = [[Message alloc] init];
-                  message.agentThinks = response[@"agentThinks"];
-                  message.agentSays = response[@"agentSays"];
-                  message.videoIndex = [response[@"videoIndex"] integerValue];
-                  message.userSays = [self.userSaysTextView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-                  //    if (self.currentAgentMessage && self.currentAgentMessage.videoSample)
-                  //        message.videoSample = self.currentAgentMessage.videoSample;
-                  message.user = [PFUser currentUser];
-                  [message saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
-                      if (!error) {
-                          NSLog(@"message sent");
-                      }
-                  }];
-                  
-              });
+              NSError *error;
+              NSDictionary *response = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+              Message *aMessage = [[Message alloc] init];
+              aMessage.agentThinks = response[@"agentThinks"];
+              aMessage.agentSays = response[@"agentSays"];
+              aMessage.videoIndex = [response[@"videoIndex"] integerValue];
+              aMessage.userSays = message;
+              __weak typeof(self) weakSelf = self;
+              [aMessage saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+                  if (!error) {
+                      NSLog(@"agent message saved");
+                       [weakSelf updateUI:aMessage];
+                  } else {
+                      [SVProgressHUD showErrorWithStatus:@"Save agent message error"];
+                  }
+              }];
           }
           
       }] resume];
